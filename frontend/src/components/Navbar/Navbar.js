@@ -16,9 +16,7 @@ function Navbar() {
       <nav id={styles.navbar}>
         <div className={styles.navbarContainer}>
           <div className={styles.navBar}>
-            <Link to="#" className={styles.menuBars}>
-              <img src={navBarImg} onClick={showdropdown} />
-            </Link>
+            
 
             <div className={styles.brand}>
               <Link to="/">
@@ -46,7 +44,13 @@ function Navbar() {
                   </a>
                 </li>
               </ul>
+              <div>
+                Login goes here
+              </div>
             </div>
+            <Link to="#" className={styles.menuBars}>
+              <img src={navBarImg} onClick={showdropdown} />
+            </Link>
           </div>
         </div>
       </nav>
@@ -70,7 +74,7 @@ function Navbar() {
             </li>
           </ul>
           <div >
-            {/* Login goes here */}
+            Login goes here
           </div>
         </div>
       </nav>
