@@ -1,8 +1,14 @@
+:root{
+  --background: white;
+  --text-primary: black;
+  --text-highlight: #FD5E00;
+  --primary: #FD5E00;
+  --secondary: #2B3A55;
+  --url: var(--primary);
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
