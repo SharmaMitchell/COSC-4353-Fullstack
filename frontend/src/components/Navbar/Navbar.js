@@ -5,8 +5,7 @@ import navBarImg from "../../assets/fa_bars.png";
 import oilIcon from "../../assets/oil_icon.png"
 
 function Navbar() {
-  //const location = useLocation().pathname; /* page location, for underline on current page */
-  const location = "/"
+  const location = useLocation().pathname; /* page location, for underline on current page */
 
   const [dropdown, setdropdown] = useState(false); /* dropdown show/hide (for mobile) */
 
@@ -45,7 +44,7 @@ function Navbar() {
                 </li>
               </ul>
               <div>
-                Login goes here
+                {/* Login goes here */}
               </div>
             </div>
             <Link to="#" className={styles.menuBars}>
@@ -55,8 +54,8 @@ function Navbar() {
         </div>
       </nav>
       <nav className={dropdown ? `${styles.dropdown} ${styles.active}` : styles.dropdown}>
-        <div className="nav-list">
-          <ul className="nav-list-items" onClick={showdropdown}>
+        <div className={styles.navList}>
+          <ul className={styles.navItems} onClick={showdropdown}>
             <li>
               <a className={location === "/" ? styles.cuPage : ""}>
                 <Link to="/">Home</Link>
@@ -74,7 +73,7 @@ function Navbar() {
             </li>
           </ul>
           <div >
-            Login goes here
+            {/* Login goes here */}
           </div>
         </div>
       </nav>

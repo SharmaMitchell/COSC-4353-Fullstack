@@ -68,7 +68,6 @@ a{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 36px;
 }
 .dropdown .navList ul {
   list-style: none;
@@ -81,14 +80,14 @@ a{
   align-items: center;
   z-index: 1;
 
-  padding-left: 34px;
+  padding: 0 25px;
   /*margin-top: 40px;*/
 }
 .dropdown .navList ul li {
   position: relative;
 }
 .dropdown .navList ul li a {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.2rem;
   text-decoration: none;
@@ -97,7 +96,7 @@ a{
   /* Note: Padding doubled due to using both <Link> and <a> (needed <a> for class) */
   padding: 10px 5px; 
   display: block;
-  text-align: left;
+  text-align: center;
 }
 .cuPage{
   text-decoration: underline;
@@ -106,18 +105,18 @@ a{
 }
 .dropdown{
   background-color: var(--secondary);
-  width: 80vw;
-  height: max(92vh, 100vh - 80px);
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   position: fixed;
-  top: min(8vh, 80px);
-  left: -100%;
+  top: -20%;
+  right: 0;
+  /* right: -100%; */
   transition: 350ms;
   z-index: 4;
 }
 .dropdown.active{
-  left: 0;
+  right: 0;
+  top: min(8vh, 80px);
   transition: 350ms;
   z-index: 4;
   box-shadow: 0px 0px 10px black;
