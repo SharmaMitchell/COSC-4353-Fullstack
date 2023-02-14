@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My Oil Estimate",
+  "name": "My Oil Estimate | Fuel Cost Estimation Tool",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#2B3A55",
   "background_color": "#ffffff"
 }
