@@ -43,7 +43,7 @@ function DataTable() {
   }
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="estimate history table">
         <TableHead>
           <TableRow>
             <TableCell style={headStyle}>Estimate Date</TableCell>

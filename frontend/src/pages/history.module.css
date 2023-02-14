@@ -1,0 +1,11 @@
+.tableWrapper{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    justify-content: flex-start;
+}
+@media only screen and (min-width: 768px){
+    .tableWrapper{
+        justify-content: center;
+    }
+}
