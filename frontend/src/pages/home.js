@@ -1,5 +1,6 @@
 import React from "react";
 import CityImage from "../images/city-skyline.jpg"
+import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
 
 
@@ -11,10 +12,10 @@ const Home = props => {
             <a href="#overview" style={{position:"fixed", top:"625px",left: "50%",transform: "translate(-50%, -50%)", color:"white"}}>Learn More</a>
             </div>
             <div id="overview">
-                <h1 style={{color:"#2b3a55"}}>OVERVIEW</h1>
+                <SectionTitle text="Overview" />
             </div>
             <div id="features">
-                <h1 style={{color:"#2b3a55"}}>FEATURES</h1>
+                <SectionTitle text="Features" />
             </div>
         </div>
     )

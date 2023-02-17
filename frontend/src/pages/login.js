@@ -1,10 +1,11 @@
 import React from "react";
+import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
 
 const Login = props => {
     return(
         <div>
-            <h1>LOG IN</h1>
+            <SectionTitle text="Login" />
             
             <div className="row pb-1">
                 {/*username input box*/}

@@ -1,10 +1,11 @@
 import React from "react";
+import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
 
 const Estimate = props => {
     return(
         <div>
-            <h1>ESTIMATE CALCULATOR</h1>
+            <SectionTitle text="Estimate Calculator" />
             
             <div className="row pb-1">
                 <div className="input-group col-lg-4">

@@ -1,10 +1,11 @@
 import React from "react";
+import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
 
 const ManageProfile = props => {
     return(
         <div>
-            <h1>PROFILE MANAGEMENT</h1>
+            <SectionTitle text="Profile Management" />
             
             <div className="row pb-1">
                 {/*Name input box*/}
