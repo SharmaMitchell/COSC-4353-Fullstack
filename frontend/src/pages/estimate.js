@@ -1,7 +1,12 @@
 import React from "react";
 import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
-
+// TODO: change buttons and inputs to Material UI components (there is also a calendar component)
+//     (see https://mui.com/components/buttons/ and https://mui.com/components/text-fields/)
+//     (see https://mui.com/components/pickers/ for the calendar)
+// TODO: add hints below inputs to explain the calculations (see design)
+// TODO: validate input fields (gallons must be a number, date must be after current day, address must be valid (use regex, ask Mitchell for help if needed))
+// TODO: add estimate output preview (it can be blank for now, just implement the layout)
 const Estimate = props => {
     return(
         <div>
