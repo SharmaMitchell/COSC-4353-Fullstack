@@ -5,6 +5,7 @@
   --primary: #FD5E00;
   --secondary: #2B3A55;
   --url: var(--primary);
+  --card-background: rgb(220,220,220);
 }
 body {
   margin: 0;
