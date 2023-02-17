@@ -1,7 +1,9 @@
 import React from "react";
 import  SectionTitle from '../components/SectionTitle/SectionTitle'
 
-
+// TODO: Change text input and button components to MaterialUI components
+// TODO: style the page according to the mockup (left align the text, etc.)
+// TODO: validate input fields (no empty fields, zip should be a number of length 5, etc.)
 const ManageProfile = props => {
     return(
         <div>
