@@ -1,6 +1,7 @@
 import React from "react";
 import CityImage from "../assets/Houston-skyline.jpg"
 import  SectionTitle from '../components/SectionTitle/SectionTitle'
+import Button from '@mui/material/Button';
 
 
 
@@ -14,7 +15,7 @@ const Home = props => {
                 {/* TODO: add text/banner to image (see design, room for improvement if you have ideas) */}
 
                 {/* TODO: swap button with MaterialUI button component, add link to estimate page */}
-                <button type="button" style={{position:"fixed", top:"600px",left: "50%",transform: "translate(-50%, -50%)",backgroundColor:"#fd6600"}}> <a href="/estimate">GET STARTED </a></button>
+                <Button variant="contained" type="button" style={{position:"fixed", top:"600px",left: "50%",transform: "translate(-50%, -50%)",backgroundColor:"#fd6600"}}> <a href="/estimate">GET STARTED </a></Button>
                 
                 {/* TODO: style text as per design (underline, font size) */}
                 <a href="#overview" style={{position:"fixed", top:"625px",left: "50%",transform: "translate(-50%, -50%)", color:"white"}}>Learn More</a>
