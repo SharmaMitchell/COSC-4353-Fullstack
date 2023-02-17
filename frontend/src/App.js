@@ -9,11 +9,12 @@ import ManageProfile from "./pages/manage-profile.js";
 import Navbar from './components/Navbar/Navbar.js'
 
 function App() {
+  const [user, setUser] = React.useState(null);
   return (
     <div className="App">
       <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
       <Router>
-      <Navbar />
+      <Navbar user={[user, setUser]}/>
         <Routes> 
           <Route path='/' element={<Home/>} />
           <Route path='/history' element={<History/>} />
