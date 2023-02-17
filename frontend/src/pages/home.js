@@ -8,17 +8,10 @@ import Button from '@mui/material/Button';
 const Home = props => {
     return(
         <div>
-            <div style={{backgroundImage: `url(${CityImage})`,position: "relative", backgroundRepeat:"no-repeat", backgroundSize:"cover", width:"100%", height:"700px"}}>
-
-                {/* TODO: add black layer with opacity 0.3 to image */}
-
+            <div style={{backgroundImage: `url(${CityImage})`, boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)', position: "relative", backgroundRepeat:"no-repeat", backgroundSize:"cover", width:"100%", height:"700px",bottom:"50px"}}>
                 {/* TODO: add text/banner to image (see design, room for improvement if you have ideas) */}
-
-                {/* TODO: swap button with MaterialUI button component, add link to estimate page */}
-                <Button variant="contained" type="button" style={{position:"fixed", top:"600px",left: "50%",transform: "translate(-50%, -50%)",backgroundColor:"#fd6600"}}> <a href="/estimate">GET STARTED </a></Button>
-                
-                {/* TODO: style text as per design (underline, font size) */}
-                <a href="#overview" style={{position:"fixed", top:"625px",left: "50%",transform: "translate(-50%, -50%)", color:"white"}}>Learn More</a>
+                <Button variant="contained" type="button" size="large" style={{position:"fixed", top:"600px",left: "50%",transform: "translate(-50%, -50%)",backgroundColor:"#fd6600"}}> <a href="/estimate" style={{color:'white'}}>GET STARTED </a></Button>
+                <a href="#overview" style={{textDecoration:"underline", position:"fixed", top:"635px",left: "50%",transform: "translate(-50%, -50%)", color:"white"}}>Learn More</a>
             </div>
             <div id="overview">
                 <SectionTitle text="Overview" />
