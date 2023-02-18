@@ -18,8 +18,13 @@ const Home = props => {
             </div>
             <div id="overview">
                 <SectionTitle text="Overview" />
-
-                {/* TODO: add overview text, briefly describing the site */}
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <p style={{width:'75%'}}>With this application, users can easily sign up for free, enter their relevant information into an estimate form, and get an esitmate within minutes. 
+                        The backend of the application, powered by Node and Express, can then use this data to make predictions based on various factors such as oil 
+                        reserves and production rates. The estimated production data can be returned to the user in just seconds, allowing for quick and efficient decision-making. 
+                        Additionally, the application can store past estimates, which enables users to review and compare their estimated production data over time.
+                    </p>
+                </div>
 
             </div>
             <div id="features">
