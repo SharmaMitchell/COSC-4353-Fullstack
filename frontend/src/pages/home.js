@@ -28,7 +28,7 @@ const Home = props => {
             </a>
           </div>
         </div>
-        <div id="overview">
+        <div id="overview" style={{paddingTop: 80+'px', marginTop: "-60px"}}>
           <SectionTitle text="Overview" />
           <div
             style={{
