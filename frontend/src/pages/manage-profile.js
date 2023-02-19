@@ -175,7 +175,7 @@ const ManageProfile = props => {
                             />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'}>
-                        <Button type="submit" variant="contained" color="primary">SIGN UP</Button>
+                        <Button type="submit" variant="contained" color="primary">SAVE</Button>
                     </Grid>
                 </Grid>
             </form>
