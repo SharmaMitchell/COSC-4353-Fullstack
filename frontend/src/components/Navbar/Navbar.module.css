@@ -108,7 +108,7 @@ a{
   display: flex;
   justify-content: center;
   position: fixed;
-  top: -20%;
+  top: calc(-240px - min(8vh, 80px));
   right: 0;
   /* right: -100%; */
   transition: 350ms;
@@ -227,7 +227,7 @@ a{
   .dropdown.active{
     left: -100%;
   }
-  .login{
-    padding-left: 12px;
+  .loginList{
+    padding-left: 11px;
   }
 }
