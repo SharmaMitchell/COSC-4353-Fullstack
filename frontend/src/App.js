@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import useLocalStorage from 'use-local-storage';
 import './App.css';
 import Estimate from "./pages/estimate.js";
 import History from "./pages/history.js";
@@ -10,11 +11,18 @@ import Navbar from './components/Navbar/Navbar.js'
 import PageContainer from './components/PageContainer/PageContainer';
 
 function App() {
+
+  const [loginState, setLoginState] = useLocalStorage('loginState', false)
+
+  const toggleLogin = () =>{
+    loginState ? setLoginState(false) : setLoginState(true)
+  }
+
   return (
     <div className="App">
       <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
       <Router>
-      <Navbar />
+      <Navbar login={loginState} toggle={toggleLogin}/>
         <PageContainer>
           <Routes> 
             <Route path='/' element={<Home/>} />
