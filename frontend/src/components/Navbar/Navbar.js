@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css"; // Style sheet
 import navBarImg from "../../assets/fa_bars.png";
 import oilIcon from "../../assets/oil_icon.png";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 
 function Navbar(props) {
   const location = useLocation().pathname; /* page location, for underline on current page */
@@ -11,16 +14,26 @@ function Navbar(props) {
 
   const showdropdown = () => setdropdown(!dropdown); /* dropdown toggle function */
 
-  let loginState = props.loginState /* get and store login state */
+  const theme = useTheme();
 
+  let loginState = props.login /* get and store login state */
+  let loginToggle = props.toggle /* get and store login toggle function */
+  
+  let navigate = useNavigate(); /* navigate to different pages */
+
+  const Login = () => {
+    navigate("/login");
+  };
+
+  const Signup = () => {
+    navigate("/signup");
+  };
 
   return (
     <>
       <nav id={styles.navbar}>
         <div className={styles.navbarContainer}>
           <div className={styles.navBar}>
-            
-
             <div className={styles.brand}>
               <Link to="/">
                 <img src={oilIcon} />
@@ -46,11 +59,18 @@ function Navbar(props) {
                     <Link to="/history">History</Link>
                   </a>
                 </li>
-                { loginState ? (<li><a onClick={props.toggle}>Logout</a></li>):(<ul><li><Link to={"/login"} className="nav-link">Login</Link></li><li><Link to={"/login"} className="nav-link">Sign Up</Link></li></ul>) }
+                <li className={styles.loginList}>
+                  {loginState ? (
+                    <Button variant="outlined" onClick={loginToggle} color="white">Log Out</Button>
+                  ) : (
+                    <Stack direction="row" spacing={2}>
+                      <Button variant="contained" onClick={Login} color="primary">Log In</Button>
+                      <Button variant="outlined" onClick={Signup} color="white">Sign Up</Button>
+                    </Stack>
+                  )}
+                </li>
               </ul>
-              <div>
-                {/* Login goes here */}
-              </div>
+              
             </div>
             <Link to="#" className={styles.menuBars}>
               <img src={navBarImg} onClick={showdropdown} />
@@ -58,7 +78,11 @@ function Navbar(props) {
           </div>
         </div>
       </nav>
-      <nav className={dropdown ? `${styles.dropdown} ${styles.active}` : styles.dropdown}>
+      <nav
+        className={
+          dropdown ? `${styles.dropdown} ${styles.active}` : styles.dropdown
+        }
+      >
         <div className={styles.navList}>
           <ul className={styles.navItems} onClick={showdropdown}>
             <li>
@@ -76,10 +100,17 @@ function Navbar(props) {
                 <Link to="/history">History</Link>
               </a>
             </li>
+            <li className={styles.loginList}>
+              {loginState ? (
+                <Button variant="contained" onClick={props.setLoginState}>Log Out</Button>
+              ) : (
+                <Stack direction="row" spacing={2}>
+                  <Button variant="contained" onClick={Login} color="primary">Log In</Button>
+                  <Button variant="outlined" onClick={Signup} color="white">Sign Up</Button>
+                </Stack>
+              )}
+            </li>
           </ul>
-          <div >
-            {/* Login goes here */}
-          </div>
         </div>
       </nav>
     </>
