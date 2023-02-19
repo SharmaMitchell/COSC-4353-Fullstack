@@ -4,15 +4,15 @@ import styles from "./Navbar.module.css"; // Style sheet
 import navBarImg from "../../assets/fa_bars.png";
 import oilIcon from "../../assets/oil_icon.png";
 
-function Navbar({user, setUser}) {
+function Navbar(props) {
   const location = useLocation().pathname; /* page location, for underline on current page */
 
   const [dropdown, setdropdown] = useState(false); /* dropdown show/hide (for mobile) */
 
   const showdropdown = () => setdropdown(!dropdown); /* dropdown toggle function */
-  async function logout() {
-    setUser(null)
-  }
+
+  let loginState = props.loginState /* get and store login state */
+
 
   return (
     <>
@@ -46,17 +46,9 @@ function Navbar({user, setUser}) {
                     <Link to="/history">History</Link>
                   </a>
                 </li>
-                <li>
-                  {/* if user exists, run logout fxn onClick, if user does not exist, go to /login page when link clicked */}
-                  { user ? (<a onClick={logout}>Logout {user.name}</a>) : (<Link to={"/login"} className="nav-link">Login</Link>) }
-                </li>
+                { loginState ? (<li><a onClick={props.toggle}>Logout</a></li>):(<ul><li><Link to={"/login"} className="nav-link">Login</Link></li><li><Link to={"/login"} className="nav-link">Sign Up</Link></li></ul>) }
               </ul>
               <div>
-                {/* 3rd link - one link that looks different based on a variable */}
-          <li className="nav-item">
-            { user ? (<a></a>)
-               : (<Link to={"/register"} className="nav-link">Register</Link>) }
-          </li>
                 {/* Login goes here */}
               </div>
             </div>
