@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLocalStorage from 'use-local-storage';
 import './App.css';
 import Estimate from "./pages/estimate.js";
@@ -18,21 +19,37 @@ function App() {
     loginState ? setLoginState(false) : setLoginState(true)
   }
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#FD5E00",
+      },
+      secondary:{
+        main: "#2B3A55"
+      },
+      white:{
+        main: "#FFFFFF"
+      }
+    }
+  });
+
   return (
     <div className="App">
-      <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
-      <Router>
-      <Navbar login={loginState} toggle={toggleLogin}/>
-        <PageContainer>
-          <Routes> 
-            <Route path='/' element={<Home/>} />
-            <Route path='/history' element={<History/>} />
-            <Route path='/login' element={<Login/>} />
-            <Route path='/estimate' element={<Estimate/>} />
-            <Route path='/manage-profile' element={<ManageProfile/>} />
-          </Routes>
-        </PageContainer>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
+        <Router>
+        <Navbar login={loginState} toggle={toggleLogin}/>
+          <PageContainer>
+            <Routes> 
+              <Route path='/' element={<Home/>} />
+              <Route path='/history' element={<History/>} />
+              <Route path='/login' element={<Login/>} />
+              <Route path='/estimate' element={<Estimate/>} />
+              <Route path='/manage-profile' element={<ManageProfile/>} />
+            </Routes>
+          </PageContainer>
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }
