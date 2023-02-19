@@ -1,0 +1,35 @@
+.landingArea{
+    background-image: url("../assets/Houston-skyline.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 700px;
+    background-position: center;
+    /* bottom: 50px; */
+}
+.bannerImg{
+    position: relative;
+    max-width: 90vw;
+}
+.landingButtons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+}
+.learnMore{
+    color: white;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    padding-top: 20px;
+}
+.featuresHeading{
+    margin: 0;
+}

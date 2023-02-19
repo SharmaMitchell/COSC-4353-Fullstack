@@ -1,40 +1,93 @@
 import React from "react";
-import CityImage from "../assets/Houston-skyline.jpg"
 import  SectionTitle from '../components/SectionTitle/SectionTitle'
 import Button from '@mui/material/Button';
 import Banner from "../assets/logo-no-background.png";
-
-
+import styles from './home.module.css'
+import { useNavigate } from "react-router-dom";
 
 const Home = props => {
-    return(
-        <div>
-            <div style={{backgroundImage: `url(${CityImage})`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)', position: "relative", backgroundRepeat:"no-repeat", backgroundSize:"cover", width:"100%", height:"700px",bottom:"50px"}}>
-                {/* TODO: add text/banner to image (see design, room for improvement if you have ideas) */}
-                {/* <div style={{backgroundImage: `url(${Banner})`, position: "absolute", backgroundRepeat:"no-repeat", margin:"auto", width:"75%", height:"50%", top:"30%"}}></div> */}
-                <img src={Banner} style={{position:"fixed", maxWidth: "90vw"}}/>
-                <Button variant="contained" type="button" size="large" style={{position:"fixed", top:"600px",left: "50%",transform: "translate(-50%, -50%)",backgroundColor:"#fd6600"}}> <a href="/estimate" style={{color:'white'}}>GET STARTED </a></Button>
-                <a href="#overview" style={{textDecoration:"underline", position:"fixed", top:"635px",left: "50%",transform: "translate(-50%, -50%)", color:"white"}}>Learn More</a>
-            </div>
-            <div id="overview">
-                <SectionTitle text="Overview" />
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <p style={{width:'75%'}}>With this application, users can easily sign up for free, enter their relevant information into an estimate form, and get an esitmate within minutes. 
-                        The backend of the application, powered by Node and Express, can then use this data to make predictions based on various factors such as oil 
-                        reserves and production rates. The estimated production data can be returned to the user in just seconds, allowing for quick and efficient decision-making. 
-                        Additionally, the application can store past estimates, which enables users to review and compare their estimated production data over time.
-                    </p>
-                </div>
-
-            </div>
-            <div id="features">
-                <SectionTitle text="Features" />
-
-                {/* TODO: add features text, describing the features in more detail, maybe with instructions. Have chatGPT write something? */}
-
-            </div>
+    let navigate = useNavigate();
+    const handleGetStarted = () => {
+        navigate('/estimate');
+    }
+    return (
+      <div>
+        <div className={styles.landingArea}>
+          <img src={Banner} className={styles.bannerImg} />
+          <div className={styles.landingButtons}>
+            <Button
+              variant="contained"
+              type="button"
+              size="large"
+              onClick={handleGetStarted}
+            >
+              GET STARTED
+            </Button>
+            <a href="#overview" className={styles.learnMore}>
+              Learn More
+            </a>
+          </div>
         </div>
-    )
+        <div id="overview">
+          <SectionTitle text="Overview" />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <p style={{ maxWidth: 900 + "px" }}>
+              With this application, users can easily sign up for free, enter
+              their relevant information into an estimate form, and get an
+              esitmate within minutes. The backend of the application, powered
+              by Node and Express, can then use this data to make predictions
+              based on various input factors and industry standards. The
+              estimated production data can be returned to the user in just
+              seconds, allowing for quick and efficient decision-making.
+              Additionally, the application can store past estimates, which
+              enables users to review and compare their estimated production
+              data over time.
+            </p>
+          </div>
+        </div>
+        <div id="features" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <SectionTitle text="Features" />
+          <div style={{ margin: "20px", maxWidth: 900+'px' }}>
+            <h2 className={styles.featuresHeading}>Accurate Fuel Cost Calculation</h2>
+            <p>
+              Our app uses industry-standard factors to estimate fuel costs,
+              including:
+            </p>
+            <ul style={{textAlign: 'left', maxWidth: 600+'px'}}>
+              <li><b>Location Factor</b> - 2% for Texas, 4% for out of state</li>
+              <li>
+                <b>Rate History Factor</b> - 0% for first purchase, 1% for returning customers
+              </li>
+              <li>
+                <b>Gallons Requested Factor</b> - 2% if more than 1000 gallons, 3% if
+                less
+              </li>
+              <li><b>Company Profit Factor</b> - 10%</li>
+            </ul>
+          </div>
+          <div style={{ margin: "20px", maxWidth: 900+'px' }}>
+            <h2 className={styles.featuresHeading}>Secure Login</h2>
+            <p>
+              Your security is our top priority. Our app provides a secure login
+              with password encryption to protect your account.
+            </p>
+          </div>
+          <div style={{ margin: "20px", maxWidth: 900+'px' }}>
+            <h2 className={styles.featuresHeading}>Estimate History</h2>
+            <p>
+              Our app conveniently stores your estimate history for easy
+              reference at any time.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default Home;
