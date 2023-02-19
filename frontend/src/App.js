@@ -10,6 +10,8 @@ import ManageProfile from "./pages/manage-profile.js";
 import Navbar from './components/Navbar/Navbar.js'
 import PageContainer from './components/PageContainer/PageContainer';
 
+
+
 function App() {
 
   const [loginState, setLoginState] = useLocalStorage('loginState', false)
@@ -27,7 +29,8 @@ function App() {
           <Routes> 
             <Route path='/' element={<Home/>} />
             <Route path='/history' element={<History/>} />
-            <Route path='/login' element={<Login/>} />
+            <Route path='/login' element={<Login login = {true}/>}/>
+            <Route path='/signup' element={<Login login = {false}/>}/>
             <Route path='/estimate' element={<Estimate/>} />
             <Route path='/manage-profile' element={<ManageProfile/>} />
           </Routes>
@@ -37,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
