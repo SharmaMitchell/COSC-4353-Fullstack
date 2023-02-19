@@ -33,3 +33,9 @@
 .featuresHeading{
     margin: 0;
 }
+.featuresContainer{
+    width: 600px;
+    max-width: 95vw;
+    text-align: left;
+    margin: 0 20px 10px 20px;
+}
