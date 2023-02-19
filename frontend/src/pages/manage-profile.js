@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import SectionTitle from '../components/SectionTitle/SectionTitle'
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -16,20 +14,51 @@ const ManageProfile = props => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [address2, setAddress2] = useState('');
-    const [apt, setApt] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [country, setCounty] = useState('');
     const [zipcode, setZipcode] = useState('');
     
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+      };
     
+      const handleAddressChange = (event) => {
+        setAddress(event.target.value);
+      };
+    
+      const handleAddress2Change = (event) => {
+        setAddress2(event.target.value);
+      };
+    
+      const handleCityChange = (event) => {
+        setCity(event.target.value);
+      };
+    
+      const handleStateChange = (event) => {
+        setState(event.target.value);
+      };
+    
+      const handleZipcodeChange = (event) => {
+        setZipcode(event.target.value);
+      };
 
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            name: name,
+            address: address,
+            address2: address2,
+            city: city,
+            state: state,
+            zipcode: zipcode,
+        }
+        console.log(data);
+    }
 
     return(
         <div>
             <SectionTitle text = "Profile Management"></SectionTitle>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Grid container spacing = {2}  >
                     <Grid item xs = {12}>
                         <TextField  
@@ -38,6 +67,7 @@ const ManageProfile = props => {
                         placeholder = "John Doe"
                         inputProps = {{maxLength:50}}
                         required
+                        onChange = {handleNameChange}
                         />
                     </Grid>
                     <Grid item xs = {12} direction = {"row"}>
@@ -47,24 +77,27 @@ const ManageProfile = props => {
                         placeholder = "9813 Nut Street"
                         inputProps = {{maxLength:100}}
                         required
-                        
+                        onChange={handleAddressChange}
                         />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'}>
                         <TextField  
                         label="Street Address 2" 
-                        id = "address 2"
+                        id = "address2"
                         placeholder = "Apt, Suite, etc... "
-                        
-                        
+                        inputProps = {{maxLength:100}}
+                        onChange={handleAddress2Change}
                         />
                     </Grid>
-                    <Grid item xs = {12} direction = {'row'}>
+                    <Grid item xs = {12} direction = {'column'} >
                         <TextField  
-                        label="City" 
-                        inputProps = {{maxLength:100}}
-                        required
-                        />
+                            label="City" 
+                            id = "city"
+                            placeholder = "Houston"
+                            inputProps = {{maxLength:100}}
+                            required
+                            onChange={handleCityChange}
+                            />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'} >
                         <FormControl sx = {{width: 225,}} required>
@@ -73,6 +106,8 @@ const ManageProfile = props => {
                                 labelId = "demo-simple-select-label"
                                 label = "State"
                                 required
+                                sx={{textAlign: 'left',}}
+                                onChange={handleStateChange}
                             >   
                                 <MenuItem value={''}>Select a State...</MenuItem>
                                 <MenuItem value={'AL'}>Alabama</MenuItem>
@@ -129,21 +164,14 @@ const ManageProfile = props => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs = {12} direction = {'column'} >
-                        <TextField  
-                            label="City" 
-                            id = "city"
-                            placeholder = "Houston"
-                            inputProps = {{maxLength:100}}
-                            required
-                            />
-                    </Grid>
                     <Grid item xs = {12} direction = {'row'}>
                         <TextField  
                             label="Zipcode" 
+                            type="number"
                             placeholder = "77055"
-                            inputProps = {{maxLength:9}}
+                            inputProps = {{minLength: 5, maxLength:9}}
                             required
+                            onChange={handleZipcodeChange}
                             />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'}>
