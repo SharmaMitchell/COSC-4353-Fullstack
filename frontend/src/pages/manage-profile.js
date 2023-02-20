@@ -17,30 +17,6 @@ const ManageProfile = props => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipcode, setZipcode] = useState('');
-    
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-      };
-    
-      const handleAddressChange = (event) => {
-        setAddress(event.target.value);
-      };
-    
-      const handleAddress2Change = (event) => {
-        setAddress2(event.target.value);
-      };
-    
-      const handleCityChange = (event) => {
-        setCity(event.target.value);
-      };
-    
-      const handleStateChange = (event) => {
-        setState(event.target.value);
-      };
-    
-      const handleZipcodeChange = (event) => {
-        setZipcode(event.target.value);
-      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -67,7 +43,7 @@ const ManageProfile = props => {
                         placeholder = "John Doe"
                         inputProps = {{maxLength:50}}
                         required
-                        onChange = {handleNameChange}
+                        onChange={(event) => setName(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs = {12} direction = {"row"}>
@@ -77,7 +53,7 @@ const ManageProfile = props => {
                         placeholder = "9813 Nut Street"
                         inputProps = {{maxLength:100}}
                         required
-                        onChange={handleAddressChange}
+                        onChange={(event) => setAddress(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'}>
@@ -86,7 +62,7 @@ const ManageProfile = props => {
                         id = "address2"
                         placeholder = "Apt, Suite, etc... "
                         inputProps = {{maxLength:100}}
-                        onChange={handleAddress2Change}
+                        onChange={(event) => setAddress2(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs = {12} direction = {'column'} >
@@ -96,7 +72,7 @@ const ManageProfile = props => {
                             placeholder = "Houston"
                             inputProps = {{maxLength:100}}
                             required
-                            onChange={handleCityChange}
+                            onChange={(event) => setCity(event.target.value)}
                             />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'} >
@@ -107,7 +83,7 @@ const ManageProfile = props => {
                                 label = "State"
                                 required
                                 sx={{textAlign: 'left',}}
-                                onChange={handleStateChange}
+                                onChange={(event) => setState(event.target.value)}
                             >   
                                 <MenuItem value={''}>Select a State...</MenuItem>
                                 <MenuItem value={'AL'}>Alabama</MenuItem>
@@ -171,7 +147,7 @@ const ManageProfile = props => {
                             placeholder = "77055"
                             inputProps = {{minLength: 5, maxLength:9}}
                             required
-                            onChange={handleZipcodeChange}
+                            onChange={(event) => setZipcode(event.target.value)}
                             />
                     </Grid>
                     <Grid item xs = {12} direction = {'row'}>
