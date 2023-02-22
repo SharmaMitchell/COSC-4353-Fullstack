@@ -102,7 +102,7 @@ function Navbar(props) {
             </li>
             <li className={styles.loginList}>
               {props.login ? (
-                <Button variant="contained" onClick={props.toggle}>Log Out</Button>
+                <Button variant="outlined" onClick={props.toggle} color="white">Log Out</Button>
               ) : (
                 <Stack direction="row" spacing={2}>
                   <Button variant="contained" onClick={Login} color="primary">Log In</Button>
