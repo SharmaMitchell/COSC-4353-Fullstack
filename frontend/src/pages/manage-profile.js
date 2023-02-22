@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SectionTitle from '../components/SectionTitle/SectionTitle'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -17,7 +18,8 @@ const ManageProfile = props => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipcode, setZipcode] = useState('');
-
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -29,6 +31,7 @@ const ManageProfile = props => {
             zipcode: zipcode,
         }
         console.log(data);
+        navigate("/estimate");
     }
 
     return(
