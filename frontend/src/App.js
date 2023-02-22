@@ -11,26 +11,47 @@ import ManageProfile from "./pages/manage-profile.js";
 import Navbar from './components/Navbar/Navbar.js'
 import PageContainer from './components/PageContainer/PageContainer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-
+import {UserAlert} from './components/UserAlert/UserAlert';
 
 function App() {
+  // Login state
   const [loginState, setLoginState] = useLocalStorage('loginState', null)
-  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null ? true : false)
+  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null)
+  const [isFirstLogin, setIsFirstLogin] = useLocalStorage('firstLogin', loginState == null)
 
+  // Alert state (for login/signup)
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  // Login state setter
   const setLogin = (uid) =>{
     setLoginState(uid)
     setIsLoggedIn(true)
   }
 
+  // Logout setter
   const handleLogOut = () => {
+    if(isLoggedIn && !isFirstLogin){
+      setAlertMessage(`Successfully logged out.`)
+      setOpenAlert(true)
+      setIsFirstLogin(false)
+    }
     setLoginState(null)
     setIsLoggedIn(false)
+    setIsFirstLogin(true)
   }
 
+  // Login state change handler, for login alert
   useEffect(() => {
-    console.log("loginState updated:", loginState);
+      console.log("loginState updated:", loginState);
+      if(isLoggedIn && isFirstLogin){
+        setAlertMessage(`Successfully logged in: Welcome, ${loginState}!`)
+        setOpenAlert(true)
+        setIsFirstLogin(false)
+      }
   }, [loginState]);
 
+  // MUI theme
   const theme = createTheme({
     palette: {
       primary: {
@@ -62,6 +83,7 @@ function App() {
               <Route path='/manage-profile' element={<ManageProfile/>} />
             </Routes>
           </PageContainer>
+          <UserAlert open={openAlert} setOpen={setOpenAlert} message={alertMessage} severity="success"/>
         </Router>
       </ThemeProvider>
     </div>
