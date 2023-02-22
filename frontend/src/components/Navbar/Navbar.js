@@ -16,8 +16,8 @@ function Navbar(props) {
 
   const theme = useTheme();
 
-  let loginState = props.login /* get and store login state */
-  let loginToggle = props.toggle /* get and store login toggle function */
+  const loginState = props.login /* get and store login state */
+  const loginToggle = props.toggle /* get and store login toggle function */
   
   let navigate = useNavigate(); /* navigate to different pages */
 
@@ -60,8 +60,8 @@ function Navbar(props) {
                   </a>
                 </li>
                 <li className={styles.loginList}>
-                  {loginState ? (
-                    <Button variant="outlined" onClick={loginToggle} color="white">Log Out</Button>
+                  {props.login ? (
+                    <Button variant="outlined" onClick={props.toggle} color="white">Log Out</Button>
                   ) : (
                     <Stack direction="row" spacing={2}>
                       <Button variant="contained" onClick={Login} color="primary">Log In</Button>
@@ -101,8 +101,8 @@ function Navbar(props) {
               </a>
             </li>
             <li className={styles.loginList}>
-              {loginState ? (
-                <Button variant="contained" onClick={props.setLoginState}>Log Out</Button>
+              {props.login ? (
+                <Button variant="contained" onClick={props.toggle}>Log Out</Button>
               ) : (
                 <Stack direction="row" spacing={2}>
                   <Button variant="contained" onClick={Login} color="primary">Log In</Button>

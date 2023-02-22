@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLocalStorage from 'use-local-storage';
@@ -14,12 +14,22 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 
 function App() {
+  const [loginState, setLoginState] = useLocalStorage('loginState', null)
+  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null ? true : false)
 
-  const [loginState, setLoginState] = useLocalStorage('loginState', false)
-
-  const toggleLogin = () =>{
-    loginState ? setLoginState(false) : setLoginState(true)
+  const setLogin = (uid) =>{
+    setLoginState(uid)
+    setIsLoggedIn(true)
   }
+
+  const handleLogOut = () => {
+    setLoginState(null)
+    setIsLoggedIn(false)
+  }
+
+  useEffect(() => {
+    console.log("loginState updated:", loginState);
+  }, [loginState]);
 
   const theme = createTheme({
     palette: {
@@ -41,13 +51,13 @@ function App() {
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
         <Router>
         <ScrollToTop />
-        <Navbar login={loginState} toggle={toggleLogin}/>
+        <Navbar login={loginState} toggle={handleLogOut}/>
           <PageContainer>
             <Routes> 
               <Route path='/' element={<Home/>} />
               <Route path='/history' element={<History/>} />
-              <Route path='/login' element={<Login login = {true}/>}/>
-              <Route path='/signup' element={<Login login = {false}/>}/>
+              <Route path='/login' element={<Login login = {true} state={isLoggedIn} setter={setLogin}/>}/>
+              <Route path='/signup' element={<Login login = {false} state={isLoggedIn} setter={setLogin}/>}/>
               <Route path='/estimate' element={<Estimate/>} />
               <Route path='/manage-profile' element={<ManageProfile/>} />
             </Routes>
