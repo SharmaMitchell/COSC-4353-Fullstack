@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLocalStorage from 'use-local-storage';
@@ -11,16 +11,47 @@ import ManageProfile from "./pages/manage-profile.js";
 import Navbar from './components/Navbar/Navbar.js'
 import PageContainer from './components/PageContainer/PageContainer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-
+import {UserAlert} from './components/UserAlert/UserAlert';
 
 function App() {
+  // Login state
+  const [loginState, setLoginState] = useLocalStorage('loginState', null)
+  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null)
+  const [isFirstLogin, setIsFirstLogin] = useLocalStorage('firstLogin', loginState == null)
 
-  const [loginState, setLoginState] = useLocalStorage('loginState', false)
+  // Alert state (for login/signup)
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
-  const toggleLogin = () =>{
-    loginState ? setLoginState(false) : setLoginState(true)
+  // Login state setter
+  const setLogin = (uid) =>{
+    setLoginState(uid)
+    setIsLoggedIn(true)
   }
 
+  // Logout setter
+  const handleLogOut = () => {
+    if(isLoggedIn && !isFirstLogin){
+      setAlertMessage(`Successfully logged out.`)
+      setOpenAlert(true)
+      setIsFirstLogin(false)
+    }
+    setLoginState(null)
+    setIsLoggedIn(false)
+    setIsFirstLogin(true)
+  }
+
+  // Login state change handler, for login alert
+  useEffect(() => {
+      console.log("loginState updated:", loginState);
+      if(isLoggedIn && isFirstLogin){
+        setAlertMessage(`Successfully logged in: Welcome, ${loginState}!`)
+        setOpenAlert(true)
+        setIsFirstLogin(false)
+      }
+  }, [loginState]);
+
+  // MUI theme
   const theme = createTheme({
     palette: {
       primary: {
@@ -41,17 +72,18 @@ function App() {
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
         <Router>
         <ScrollToTop />
-        <Navbar login={loginState} toggle={toggleLogin}/>
+        <Navbar login={loginState} toggle={handleLogOut}/>
           <PageContainer>
             <Routes> 
               <Route path='/' element={<Home/>} />
               <Route path='/history' element={<History/>} />
-              <Route path='/login' element={<Login login = {true}/>}/>
-              <Route path='/signup' element={<Login login = {false}/>}/>
+              <Route path='/login' element={<Login login = {true} state={isLoggedIn} setter={setLogin}/>}/>
+              <Route path='/signup' element={<Login login = {false} state={isLoggedIn} setter={setLogin}/>}/>
               <Route path='/estimate' element={<Estimate/>} />
               <Route path='/manage-profile' element={<ManageProfile/>} />
             </Routes>
           </PageContainer>
+          <UserAlert open={openAlert} setOpen={setOpenAlert} message={alertMessage} severity="success"/>
         </Router>
       </ThemeProvider>
     </div>

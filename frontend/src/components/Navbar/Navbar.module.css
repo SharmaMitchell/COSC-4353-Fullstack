@@ -124,6 +124,7 @@ a{
 .loginList{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 /* Tablet */
