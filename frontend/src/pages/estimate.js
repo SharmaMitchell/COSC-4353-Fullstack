@@ -39,14 +39,14 @@ const Estimate = props => {
                         />
                      </Grid>
 
-                     <div>
-                        <h2>
-                            delivery address
-                        </h2>
-                        <p>
-                            123 drive
-                        </p>
-                     </div>
+                    <Grid item xs = {12}>
+                    <TextField
+                        label = "Delivery Address" 
+                        id = "address"
+                        defaultValue= "123 Drive"
+                        disabled
+                        />
+                    </Grid>
 
 
                      <Grid item xs = {12}>
