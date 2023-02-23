@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import SectionTitle from '../components/SectionTitle/SectionTitle'
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from "@mui/material/FormControl";
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 //import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -40,24 +38,16 @@ const Estimate = props => {
                         onChange={(event) => setGallons(event.target.value)}
                         />
                      </Grid>
-
-                    
                     <Grid item xs={12}>
-                        <FormControl>
-                        <InputLabel shrink htmlFor="address">
-                            Delivery Address
-                        </InputLabel>
                         <TextField
+                            label="Delivery Address"
                             id="address"
                             value="123 Drive"
                             InputProps={{
                             readOnly: true,
                             }}
                         />
-                        </FormControl>
                     </Grid>
-
-
                      <Grid item xs = {12}>
                         <TextField
                         helperText = "Delivery Date" 
