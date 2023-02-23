@@ -1,34 +1,59 @@
 import React from "react";
 import  SectionTitle from '../components/SectionTitle/SectionTitle'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-// TODO: change buttons and inputs to Material UI components (there is also a calendar component)
-//     (see https://mui.com/components/buttons/ and https://mui.com/components/text-fields/)
-//     (see https://mui.com/components/pickers/ for the calendar)
-// TODO: add hints below inputs to explain the calculations (see design)
-// TODO: validate input fields (gallons must be a number, date must be after current day, address must be valid (use regex, ask Mitchell for help if needed))
-// TODO: add estimate output preview (it can be blank for now, just implement the layout)
 const Estimate = props => {
+    // const [gallons, setGallons] = useState('');
+    // const [date, setDate] = useState('');
+    // const navigate = useNavigate();
+
+
     return(
         <div>
             <SectionTitle text="Estimate Calculator" />
+                <Grid container spacing = {2}  > 
+                    <Grid item xs = {12}>
+                        <TextField
+                        type = "number"
+                        label = "Gallons Requested" 
+                        id = "gallons"
+                        placeholder = "ex: 1,700"
+                        inputProps = {{maxLength:50}}
+                        required
+                        // onChange={(event) => setGallons(event.target.value)}
+                        />
+                     </Grid>
+
+                     <Grid item xs = {12}>
+                        <TextField
+                        
+                        label = "Delivery Address"
+                        inputProps = {{maxLength:50}}
+                        
+                        />
+                     </Grid>
+
+                     <Grid item xs = {12}>
+                        <TextField
+                        helperText = "Delivery Date" 
+                        type = "date"
+                        id = "date"
+                        required
+                        //inputProps = {{maxLength:50}}
+
+                        // onChange={(event) => setDate(event.target.value)}
+                        />
+                     </Grid>      
+
+                     <Grid item xs = {12} direction = {'row'}>
+                        <Button type="submit" variant="contained" color="primary">GET QUOTE</Button> 
+                     </Grid>         
+                </Grid>
             
-            <div className="row pb-1">
-                <div className="input-group col-lg-4">
-                    <label for="date_time">Gallons Requested:</label>
-                    <input type="number" placeholder="ex: 1,700"/>
-                </div>
 
-                <p>Delivery Address</p>
-
-                <div className="input-group col-lg-4">
-                    <label for="date_time">Delivery Date:</label>
-                    <input type="date"/>
-                </div>
-
-                <div className="input-group-append">
-                    <button type="button"> GET QUOTE </button>
-                </div>
-            </div>
         </div>
     )
 };
