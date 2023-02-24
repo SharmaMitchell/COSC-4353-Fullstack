@@ -3,6 +3,7 @@ import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import EstimatesDAO from "./dao/estimatesDAO.js"
+import ProfileDAO from "./dao/profileDAO.js"
 
 dotenv.config()
 
@@ -28,6 +29,8 @@ MongoClient.connect(
 .then(async client =>{
     //get reference to estimates collection
     await EstimatesDAO.injectDB(client)
+    //get reference to profiles collection
+    await ProfileDAO.injectDB(client)
     //app.listen() starts the web server
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
