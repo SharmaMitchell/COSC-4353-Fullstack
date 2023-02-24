@@ -2,6 +2,7 @@
 import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
+import EstimatesDAO from "./dao/estimatesDAO.js"
 
 dotenv.config()
 
@@ -25,6 +26,9 @@ MongoClient.connect(
     process.exit(1)
 })
 .then(async client =>{
+    //get reference to estimates collection
+    await EstimatesDAO.injectDB(client)
+    //app.listen() starts the web server
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })
