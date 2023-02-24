@@ -30,8 +30,8 @@ const Estimate = props => {
     return(
         <div>
             <SectionTitle text="Estimate Calculator" />
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing = {2}  > 
+            <form onSubmit={handleSubmit} style={{display: 'flex', width: '100%', alignItems: 'center', flexDirection: 'column'}}>
+                <Grid container spacing = {2} sx={{maxWidth:'250px'}} > 
                     <Grid item xs = {12}>
                         <TextField
                         required
@@ -41,6 +41,8 @@ const Estimate = props => {
                         placeholder = "ex: 1,700"
                         inputProps = {{maxLength:50}}
                         onChange={(event) => setGallons(event.target.value)}
+                        sx={{ width: '100%' }}
+                        color= "secondary"
                         helperText={
                             <>
                               1000+ Gallons: 2%
@@ -58,6 +60,8 @@ const Estimate = props => {
                             InputProps={{
                             readOnly: true,
                             }}
+                            sx={{ width: '100%'}}
+                            color= "secondary"
                             helperText={
                                 <>
                                   In-State Location: 2%
@@ -65,6 +69,7 @@ const Estimate = props => {
                                   Out-Of-State Location: 4%
                                 </>
                               }
+                              variant="filled"
                             />
                     </Grid>
                      <Grid item xs = {12}>
@@ -76,18 +81,35 @@ const Estimate = props => {
                         //<DatePicker minDate={today}/>
                         inputProps = {{min: today}}
                         onChange={(event) => setDate(event.target.value)}
+                        sx={{ width: '100%' }}
+                        color= "secondary"
                         />
                      </Grid>      
-                     <Grid item xs = {12} direction = {'row'}>
+                     <Grid item xs = {12} direction = {'row'} sx={{marginTop: '20px'}}>
                         <Button type="submit" variant="contained" color="primary">GET QUOTE</Button> 
-                     </Grid>
-                     <Grid item xs={12}>
+                     </Grid>      
+                </Grid>
+                <Grid container spacing = {2} sx={{maxWidth:'250px', marginTop: '30px'}} > 
+                    <Grid item xs={12}>
                         <TextField
                             label="Suggested Price/Gallon"
                             id="price"
                             value="$6 per gallon"
                             InputProps={{
                             readOnly: true,
+                            }}
+                            sx={{ width: '100%' }}
+                            color= "primary"
+                            variant="filled"
+                            helperText={
+                                <>
+                                  Your Profit: $4.50 per gallon
+                                  <br />
+                                  Profit Factor Fee: $0.45 per gallon
+                                </>
+                              }
+                            FormHelperTextProps={{
+                                style: {color: 'black'}
                             }}
                         />
                     </Grid>
@@ -99,8 +121,25 @@ const Estimate = props => {
                             InputProps={{
                             readOnly: true,
                             }}
+                            sx={{ width: '100%' }}
+                            color= "primary"
+                            variant="filled"
+                            helperText={
+                                <>
+                                  Base cost: $2,550.00 ($1.50/gallon)
+                                  <br />
+                                  In-State: $51.00 (2% on $2,550.00)
+                                  <br />
+                                  Profit Fee: $510.00 (10% on $5100)
+                                  <br />
+                                  Total Cost: $3,111.00
+                                </>
+                              }
+                              FormHelperTextProps={{
+                                style: {color: 'black'}
+                            }}
                         />
-                    </Grid>         
+                    </Grid>   
                 </Grid>
             </form>
         </div>
