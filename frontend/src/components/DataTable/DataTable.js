@@ -7,20 +7,23 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import tableData from './example-data.json'
+// import tableData from './example-data.json'
 
-function DataTable() {
-  // const [tableData, setTableData] = useState([])
-  // useEffect(() => {
-  //   fetch("./example-data.json")
-  //   .then((data) => {
-  //     return data.json()
-  //   })
-  //   .then((data) => {
-  //     setTableData(data)
-  //     return tableData
-  //   })
-  // },[])
+function DataTable(props) {
+  // const USER_ID = props.userID
+  const USER_ID = 1
+  const [tableData, setTableData] = useState([])
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/v1/history/${USER_ID}`)
+    .then((data) => {
+      return data.json()
+    })
+    .then((data) => {
+      setTableData(data)
+      console.log(data)
+      return tableData
+    })
+  },[])
   const headStyle = {
     fontWeight: 600
   }
