@@ -37,7 +37,7 @@ describe("Server", () => {
       console.log(`listening on port ${server.address().port}`)
     })
     // Send a GET request to the server to check if it's running
-    const response = await supertest(server).get("/api/v1/estimates/")
+    const response = await supertest(server).get("/api/v1/")
     // Expect the response status to be 200 OK
     expect(response.status).toBe(200)
     // Close the server
