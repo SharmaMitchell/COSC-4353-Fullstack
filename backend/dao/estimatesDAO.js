@@ -1,21 +1,50 @@
-//create a variable the stores a reference to the database
+import { ObjectId } from "mongodb";
+
 let estimates
 
-export default class EstimatesDAO{
-    //define method to initially connect to database
-        //called as soon as server starts
-        //get reference to database
-    static async injectDB(conn){
-        //if already have a reference
-        if (estimates){
+export default class estimatesDAO {
+    static async injectDB(conn) {
+        if(estimates){
             return
         }
-        //if not, try to connect
         try {
-            estimates = await conn.db(process.env.ESTIMATES_NS).collection("estimates")
-        }
-        catch(err) {
-            console.error(`Unable to establish connection to database in estimatesDAO: ${err}`)
+            estimates = await conn.db(process.env.estimates_NS).collection("estimates")
+        } catch (e) {
+            console.error(`Unable to establish collection handles in estimatesDAO: ${e}`)
         }
     }
+    // Add estimate to database
+    static async addEstimate(user, estimateDate, gallons, address, deliveryDate, suggestedPrice, quote) {
+        try {
+            const estimateDoc = {
+                client_id: user,
+                estimateDate: estimateDate,
+                gallonsRequested: gallons,
+                deliveryAddress: address,
+                deliveryDate: deliveryDate,
+                suggestedPrice: suggestedPrice,
+                quote: quote
+            }
+            return await estimates.insertOne(estimateDoc)
+        } catch (e) {
+            console.error(`Unable to post estimate: ${e}`)
+            return []
+        }
+    }
+    static async getEstimates(clientId) {
+        try {
+          // Find all estimates in the database for the specified client ID
+          const cursor = clientId ? await estimates.find({ client_id: ObjectId(clientId) })
+                                    : await estimates.find()
+          // Convert the cursor to an array of estimates
+          const estimatesArray = await cursor.toArray()
+          console.log(estimatesArray)
+          // Return the array of estimates
+          return estimatesArray
+        } catch (e) {
+          console.error(`Unable to get estimates for client: ${e}`)
+          return []
+        }
+      }
 }
+
