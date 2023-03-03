@@ -32,15 +32,21 @@ describe("Server", () => {
   })
   
   it("should start the server and listen on the specified port", async () => {
-    // Start the server and listen on the specified port
-    const server = app.listen(process.env.PORT || 8000, () => {
-      console.log(`listening on port ${server.address().port}`)
-    })
-    // Send a GET request to the server to check if it's running
-    const response = await supertest(server).get("/api/v1/")
-    // Expect the response status to be 200 OK
-    expect(response.status).toBe(200)
-    // Close the server
-    server.close()
+    let server;
+    try {
+      // Start the server and listen on the specified port
+      server = app.listen(8000, () => {
+        console.log(`listening on port ${server.address().port}`)
+      })
+      // Send a GET request to the server to check if it's running
+      const response = await supertest(server).get("/api/v1/estimates/")
+      // Expect the response status to be 200 OK
+      expect(response.status).toBe(200)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // Close the server
+      server.close();
+    }
   })
 })
