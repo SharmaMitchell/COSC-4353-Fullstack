@@ -3,7 +3,7 @@ import EstimatesDAO from "../dao/estimatesDAO.js"
 export default class EstimatesController {
     static async apiUpdateEstimates(req, res, next) {
         try {
-            const user = req.body.client_ID
+            const client_id = req.params.clientID || ""
             const estimateDate = req.body.estimate_date
             const gallonsRequested = req.body.gallons_requested
             const deliveryAddress = req.body.address
@@ -12,7 +12,7 @@ export default class EstimatesController {
             const quote = req.body.quote
 
             const EstimatesResponse = await EstimatesDAO.updateEstimates(
-                user,
+                client_id,
                 estimateDate,
                 gallonsRequested,
                 deliveryAddress,

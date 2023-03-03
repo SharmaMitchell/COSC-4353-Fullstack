@@ -9,5 +9,6 @@ const router = express.Router()
 //     res.send(mockData)
 // })
 router.route("/:clientID").get(estimatesController.apiGetEstimates)
+router.route("/:clientID").post(estimatesController.apiUpdateEstimates)
 
 export default router
