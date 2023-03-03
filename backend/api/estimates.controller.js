@@ -26,4 +26,13 @@ export default class EstimatesController {
             res.status(500).json({ error: err.message })    
         }
   }
+  static async apiGetEstimates(req, res, next) {
+
+    const { estimatesList } = await EstimatesDAO.getEstimates(req.body.client_ID)
+
+    let response = {
+      estimates: estimatesList
+    }
+    res.json(response)
+  }
 }

@@ -1,5 +1,4 @@
 import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectId
 
 let estimates
 
@@ -32,5 +31,18 @@ export default class estimatesDAO {
             return { error: e }
         }
     }
+    static async getEstimatesForClient(clientId) {
+        try {
+          // Find all estimates in the database for the specified client ID
+          const cursor = await estimates.find({ client_id: ObjectId(clientId) })
+          // Convert the cursor to an array of estimates
+          const estimatesArray = await cursor.toArray()
+          // Return the array of estimates
+          return estimatesArray
+        } catch (e) {
+          console.error(`Unable to get estimates for client: ${e}`)
+          return { error: e }
+        }
+      }
 }
 
