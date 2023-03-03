@@ -14,7 +14,7 @@ function DataTable(props) {
   const USER_ID = 1
   const [tableData, setTableData] = useState([])
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/history/${USER_ID}`)
+    fetch(`http://localhost:5000/api/v1/estimates/${USER_ID}`)
     .then((data) => {
       return data.json()
     })
