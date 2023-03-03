@@ -28,7 +28,7 @@ export default class estimatesDAO {
             return await estimates.insertOne(estimateDoc)
         } catch (e) {
             console.error(`Unable to post estimate: ${e}`)
-            return { error: e }
+            return []
         }
     }
     static async getEstimates(clientId) {
@@ -43,7 +43,7 @@ export default class estimatesDAO {
           return estimatesArray
         } catch (e) {
           console.error(`Unable to get estimates for client: ${e}`)
-          return { error: e }
+          return []
         }
       }
 }

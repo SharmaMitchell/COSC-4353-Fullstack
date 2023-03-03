@@ -1,52 +1,53 @@
-// Import the necessary modules for testing
-import app from "./server.js"
-import supertest from "supertest"
-import dotenv from "dotenv"
-import EstimatesDAO from "./dao/estimatesDAO.js"
-import { MongoClient } from "mongodb"
+import app from "./server.js";
+import supertest from "supertest";
+import dotenv from "dotenv";
+import EstimatesDAO from "./dao/estimatesDAO.js";
+import { MongoClient } from "mongodb";
 
-
-dotenv.config()
+dotenv.config();
 
 describe("Server", () => {
-  // Initialize the client object to connect to the database
-  let client
-  
+  let client;
+  let server;
+
   beforeAll(async () => {
-    // Connect to the database before running the tests
-    client = await MongoClient.connect(
-      process.env.ESTIMATES_DB_URI,
-      { 
-        maxPoolSize: 50, 
-        wtimeoutMS: 2500,
-        useNewUrlParser: true
-      }
-    )
-    // Inject the database connection into the DAO
-    await EstimatesDAO.injectDB(client)
-  })
-  
+    client = await MongoClient.connect(process.env.ESTIMATES_DB_URI, {
+      maxPoolSize: 50,
+      wtimeoutMS: 2500,
+      useNewUrlParser: true,
+    });
+    await EstimatesDAO.injectDB(client);
+    server = app.listen(8000, () => {
+      console.log(`listening on port ${server.address().port}`);
+    });
+  });
+
   afterAll(async () => {
-    // Disconnect from the database after running the tests
-    await client.close()
-  })
-  
-  it("should start the server and listen on the specified port", async () => {
-    let server;
-    try {
-      // Start the server and listen on the specified port
-      server = app.listen(8000, () => {
-        console.log(`listening on port ${server.address().port}`)
-      })
-      // Send a GET request to the server to check if it's running
-      const response = await supertest(server).get("/api/v1/estimates/")
-      // Expect the response status to be 200 OK
-      expect(response.status).toBe(200)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // Close the server
-      server.close();
-    }
-  })
-})
+    await client.close();
+    server.close();
+  });
+
+  describe("GET /api/v1/estimates/:clientID", () => {
+    it("should return a 200 status code for a valid client ID", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.status).toBe(200);
+    });
+
+    it("should return a JSON object with estimates and client_id keys", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.body).toEqual(
+        expect.objectContaining({
+          estimates: expect.any(Array),
+          client_id: expect.any(String),
+        })
+      );
+    });
+
+    it("should return an empty array if no estimates are found for a client ID", async () => {
+      const response = await supertest(server).get(
+        "/api/v1/estimates/client_without_estimates"
+      );
+      expect(response.body.estimates).toEqual([]);
+    });
+  });
+});
