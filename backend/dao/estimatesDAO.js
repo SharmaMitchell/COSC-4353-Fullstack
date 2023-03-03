@@ -1,4 +1,4 @@
-import mongodb from "mongodb"
+import { ObjectId } from "mongodb";
 
 let estimates
 
@@ -17,7 +17,7 @@ export default class estimatesDAO {
     static async addEstimate(user, estimateDate, gallons, address, deliveryDate, suggestedPrice, quote) {
         try {
             const estimateDoc = {
-                user: user,
+                client_id: user,
                 estimateDate: estimateDate,
                 gallonsRequested: gallons,
                 deliveryAddress: address,
@@ -31,12 +31,14 @@ export default class estimatesDAO {
             return { error: e }
         }
     }
-    static async getEstimatesForClient(clientId) {
+    static async getEstimates(clientId) {
         try {
           // Find all estimates in the database for the specified client ID
-          const cursor = await estimates.find({ client_id: ObjectId(clientId) })
+          const cursor = clientId ? await estimates.find({ client_id: ObjectId(clientId) })
+                                    : await estimates.find()
           // Convert the cursor to an array of estimates
           const estimatesArray = await cursor.toArray()
+          console.log(estimatesArray)
           // Return the array of estimates
           return estimatesArray
         } catch (e) {

@@ -11,16 +11,16 @@ import Paper from '@mui/material/Paper';
 
 function DataTable(props) {
   // const USER_ID = props.userID
-  const USER_ID = 1
+  const USER_ID = "63f82d40be153fa3c4b62062"
   const [tableData, setTableData] = useState([])
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/estimates/${USER_ID}`)
+    fetch(`http://localhost:5000/api/v1/estimates/${USER_ID ? USER_ID : ""}`)
     .then((data) => {
       return data.json()
     })
     .then((data) => {
-      setTableData(data)
-      console.log(data)
+      setTableData(data.estimates)
+      console.log(data.estimates)
       return tableData
     })
   },[])
