@@ -1,7 +1,7 @@
 import ProfileDAO from "../dao/profileDAO.js"
 
 export default class ProfileController {
-    static async apiUpdateProfile(req, res, next) {
+    static async apiUpdateProfile(req, res) {
         try {
             const clientID = req.body.client_ID
             const clientName = req.body.client_name

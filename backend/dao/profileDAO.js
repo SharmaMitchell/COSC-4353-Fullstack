@@ -25,7 +25,8 @@ export default class ProfileDAO {
             }
             const updateResponse = await profiles.updateOne(
                 //{ _id: clientID},
-                { client_name: "clientName"},
+                //{ _id: '63f82d40be153fa3c4b62062'},
+                { client_name : "Clara Martin"},
                 { $set: profileDoc }
             )
             return updateResponse
