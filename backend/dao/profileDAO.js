@@ -40,7 +40,13 @@ export default class ProfileDAO {
         try {
             const registerDoc = {
                 username: clientUsername,
-                password: clientPassword
+                password: clientPassword,
+                client_name: null,
+                address_1: null,
+                address_2: null,
+                city: null,
+                state: null,
+                zipcode: null
             }
             const registerResponse = await profiles.insertOne(registerDoc)
             
@@ -48,6 +54,17 @@ export default class ProfileDAO {
         } 
         catch (err) {
             console.error(`Unable to register in profileDAO: ${err}`)
+            return { error: err }
+        }
+    }
+
+    static async getProfile(userID){
+        try{
+            const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
+            return getProfileResponse
+        }
+        catch (err) {
+            console.error(`Unable to get profile data in profileDAO: ${err}`)
             return { error: err }
         }
     }

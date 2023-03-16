@@ -23,9 +23,15 @@ const ManageProfile = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("logID is: ", props.logID)
-
+        if (props.state){
+            console.log("logID is: ", props.logID)
+            getValues(props.logID)
+        }
     });
+
+    const getValues = (userID) => {
+        
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault();

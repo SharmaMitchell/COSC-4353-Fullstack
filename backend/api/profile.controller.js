@@ -42,6 +42,17 @@ export default class ProfileController {
         res.status(500).json({ error: err.message })    
     }
 }
+
+static async apiGetProfileData(req, res) {
+    try {
+        const clientID = req.body.loginID
+        const GetProfileResponse = await ProfileDAO.getProfile(clientID)
+        res.json(GetProfileResponse)
+    } 
+    catch (err) {
+        res.status(500).json({ error: err.message })    
+    }
+}
 /* 
 static async apiLoginProfile(req, res) {
     try {
