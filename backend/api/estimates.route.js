@@ -1,9 +1,14 @@
 import express from "express"
+import fs from "fs"
+import estimatesController from "./estimates.controller.js"
 
-//get access to express router
 const router = express.Router()
 
-//demo route
-router.route("/").get((req, res) => res.send("hello world"))
+// router.route("/:clientID").get((req, res) => {
+//     const mockData = JSON.parse(fs.readFileSync("api/mockData/example-data.json"))
+//     res.send(mockData)
+// })
+router.route("/:clientID").get(estimatesController.apiGetEstimates)
+router.route("/:clientID").post(estimatesController.apiUpdateEstimates)
 
 export default router
