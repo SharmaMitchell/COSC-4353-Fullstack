@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
+import ProfileDataService from "../services/profile";
 
 
 
@@ -23,14 +24,20 @@ const ManageProfile = props => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            name: name,
-            address: address,
-            address2: address2,
+            client_name: name,
+            address_1: address,
+            address_2: address2,
             city: city,
             state: state,
-            zipcode: zipcode,
+            zipcode: zipcode
         }
-        console.log(data);
+        ProfileDataService.editProfile(data)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
         navigate("/estimate");
     }
 
