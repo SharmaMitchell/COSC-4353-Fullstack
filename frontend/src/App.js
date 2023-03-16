@@ -17,6 +17,7 @@ function App() {
   // Login state
   const [loginState, setLoginState] = useLocalStorage('loginState', null)
   const [isLoggedIn, setIsLoggedIn] = useState(loginState != null)
+  const [loginID, setLoginID] = useState("")
   const [isFirstLogin, setIsFirstLogin] = useLocalStorage('firstLogin', loginState == null)
 
   // Alert state (for login/signup)
@@ -24,8 +25,9 @@ function App() {
   const [alertMessage, setAlertMessage] = useState("");
 
   // Login state setter
-  const setLogin = (uid) =>{
-    setLoginState(uid)
+  const setLogin = (username, userID) =>{
+    setLoginState(username)
+    setLoginID(userID)
     setIsLoggedIn(true)
   }
 
@@ -44,6 +46,7 @@ function App() {
   // Login state change handler, for login alert
   useEffect(() => {
       console.log("loginState updated:", loginState);
+      console.log("loginID updated:", loginID);
       if(isLoggedIn && isFirstLogin){
         setAlertMessage(`Successfully logged in: Welcome, ${loginState}!`)
         setOpenAlert(true)
@@ -80,7 +83,7 @@ function App() {
               <Route path='/login' element={<Login login = {true} state={isLoggedIn} setter={setLogin}/>}/>
               <Route path='/signup' element={<Login login = {false} state={isLoggedIn} setter={setLogin}/>}/>
               <Route path='/estimate' element={<Estimate/>} />
-              <Route path='/manage-profile' element={<ManageProfile/>} />
+              <Route path='/manage-profile' element={<ManageProfile state = {isLoggedIn} logID = {loginID}/>} />
             </Routes>
           </PageContainer>
           <UserAlert open={openAlert} setOpen={setOpenAlert} message={alertMessage} severity="success"/>

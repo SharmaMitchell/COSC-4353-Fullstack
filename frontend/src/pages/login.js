@@ -14,10 +14,11 @@ const Login = (props) => {
 
   const navigate = useNavigate();
 
-  const login = (data) => {
+  const register = (data) => {
     ProfileDataService.createProfile(data)
     .then(response => {
       console.log(response.data);
+      props.setter(username, response.data.user_id);
     })
     .catch(e => {
       console.log(e);
@@ -27,14 +28,13 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setter(username);
     const data = {
       client_username: username,
       client_password: password
     }
     props.login
       ? navigate("/estimate")
-      : login(data)
+      : register(data)
   };
 
   return (

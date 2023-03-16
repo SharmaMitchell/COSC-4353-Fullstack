@@ -36,7 +36,7 @@ export default class ProfileController {
             clientUsername,
             clientPassword
         )
-        res.json({ status: "success" })
+        res.json({ status: "success", user_id: CreateProfileResponse.insertedId.toString() })
     } 
     catch (err) {
         res.status(500).json({ error: err.message })    
