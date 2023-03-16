@@ -43,6 +43,7 @@ export default class ProfileDAO {
                 password: clientPassword
             }
             const registerResponse = await profiles.insertOne(registerDoc)
+            
             return registerResponse
         } 
         catch (err) {
