@@ -35,4 +35,38 @@ export default class ProfileDAO {
             return { error: err }
         }
     }
+
+    static async createProfile(clientUsername, clientPassword) {
+        try {
+            const registerDoc = {
+                username: clientUsername,
+                password: clientPassword
+            }
+            const registerResponse = await profiles.insertOne(registerDoc)
+            return registerResponse
+        } 
+        catch (err) {
+            console.error(`Unable to register in profileDAO: ${err}`)
+            return { error: err }
+        }
+    }
+
+    /* static async loginProfile(clientUsername, clientPassword) {
+        try {
+            const loginDoc = {
+                username: clientUsername,
+                password: clientPassword
+            }
+            const updateResponse = await profiles.updateOne(
+                //{ _id: clientID},
+                { client_name : "Clara Martin"},
+                { $set: profileDoc }
+            )
+            return updateResponse
+        } 
+        catch (err) {
+            console.error(`Unable to update profile: ${err}`)
+            return { error: err }
+        }
+    } */
 }
