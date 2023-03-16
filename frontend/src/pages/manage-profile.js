@@ -22,7 +22,10 @@ const ManageProfile = (props) => {
     const [zipcode, setZipcode] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {console.log("logID is: ", props.logID)});
+    useEffect(() => {
+        console.log("logID is: ", props.logID)
+
+    });
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -187,20 +190,12 @@ const ManageProfile = (props) => {
                 <p style={{ maxWidth: 900 + "px", margin: "auto" }}>
                     Please log in or sign up below to manage your profile.
                 </p>
-{/*                 <ul style={{listStyle: "none", display: "inline-block"}}>
-                    <li className={styles.loginList}> */}
                     <div style={{padding: 15 + "px", display: "inline-block"}}>
-                        {props.login ? (
-                            <Button variant="outlined" onClick={props.toggle} color="white">Log Out</Button>
-                        ) : (
                             <Stack direction="row" spacing={2}>
                             <Button variant="contained" onClick={Login} color="primary">Log In</Button>
                             <Button variant="outlined" onClick={Signup} color="secondary">Sign Up</Button>
                             </Stack>
-                        )}
                     </div>
-                    {/* </li> */}
-                {/* </ul> */}
             </div>
             )}
         </div>
