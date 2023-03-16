@@ -19,6 +19,12 @@ router.route("/:clientID").post(estimatesController.apiUpdateEstimates)
 //demo route
 router.route("/estimates").get((req, res) => res.send("hello world"))
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile)
+<<<<<<< HEAD
 >>>>>>> 568577a (updateProfile functionality)
+=======
+router.route("/register").post(ProfileCtrl.apiCreateProfile)
+
+// router.route("/login").get(ProfileCtrl.apiLoginProfile)
+>>>>>>> f466699 (backend to database connection for profile creation)
 
 export default router
