@@ -29,8 +29,8 @@ export default class ProfileController {
 
   static async apiCreateProfile(req, res) {
     try {
-        const clientUsername = req.body.username
-        const clientPassword = req.body.password
+        const clientUsername = req.body.client_username
+        const clientPassword = req.body.client_password
 
         const CreateProfileResponse = await ProfileDAO.createProfile(
             clientUsername,
