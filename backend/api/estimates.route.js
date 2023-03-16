@@ -20,8 +20,12 @@ router.route("/:clientID").post(estimatesController.apiUpdateEstimates)
 router.route("/estimates").get((req, res) => res.send("hello world"))
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 568577a (updateProfile functionality)
 =======
+=======
+router.route("/get-profile").get(ProfileCtrl.apiGetProfileData)
+>>>>>>> 1faeb43 (Get Profile Data by ID backend to database connection)
 router.route("/register").post(ProfileCtrl.apiCreateProfile)
 
 // router.route("/login").get(ProfileCtrl.apiLoginProfile)
