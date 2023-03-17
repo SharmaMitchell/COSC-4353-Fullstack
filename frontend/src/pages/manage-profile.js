@@ -28,6 +28,12 @@ const ManageProfile = (props) => {
         }
     });
 
+    const nameTesting = (nameVal) => {
+        // console.log(nameVal)
+        setName(nameVal)
+        console.log(name)
+    }
+    
     const getValues = (userID) => {
         const loginData = {
             loginID: userID
@@ -55,6 +61,7 @@ const ManageProfile = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(name)
         const data = {
             user_id: props.logID,
             client_name: name,
@@ -93,23 +100,22 @@ const ManageProfile = (props) => {
                         <Grid item xs = {12}>
                             {name == null ? 
                                 <TextField   
-                                label="Full Name" 
-                                id = "name"
-                                placeholder = "John Doe"
-                                inputProps = {{maxLength:50}}
-                                helperText="Some important text"
-                                required
-                                onChange={(event) => setName(event.target.value)}
+                                    label="Full Name" 
+                                    id = "name"
+                                    placeholder = "John Doe"
+                                    inputProps = {{maxLength:50}}
+                                    required
+                                    onChange={(event) => nameTesting(event.target.value)}
                                 />
                                 : 
                                 <TextField
-                                label="Full Name" 
-                                id = "name"
-                                value = {name}
-                                inputProps = {{maxLength:50}}
-                                required
-                                onChange={(event) => setName(event.target.value)}
-                                InputLabelProps={{ shrink: true }}
+                                    label="Full Name" 
+                                    id = "name"
+                                    value = {name}
+                                    inputProps = {{maxLength:50}}
+                                    required
+                                    onChange={(event) => nameTesting(event.target.value)}
+                                    InputLabelProps={{ shrink: true }}
                                 />
                             }
                         </Grid>
