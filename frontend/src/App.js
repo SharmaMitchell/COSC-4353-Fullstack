@@ -17,11 +17,7 @@ function App() {
   // Login state
   const [loginState, setLoginState] = useLocalStorage('loginState', null)
   const [isLoggedIn, setIsLoggedIn] = useState(loginState != null)
-<<<<<<< Updated upstream
-  const [loginID, setLoginID] = useState("")
-=======
   const [loginID, setLoginID] = useLocalStorage("", null)
->>>>>>> Stashed changes
   const [isFirstLogin, setIsFirstLogin] = useLocalStorage('firstLogin', loginState == null)
 
   // Alert state (for login/signup)

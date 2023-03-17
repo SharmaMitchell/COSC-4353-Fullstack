@@ -8,13 +8,10 @@ class ProfileDataService {
     createProfile(data) {
         return http.post("/register", data);
     }
-<<<<<<< Updated upstream
-=======
 
     getProfileData(data) {
         return http.get("/get-profile", data);
     }
->>>>>>> Stashed changes
 }
 
 export default new ProfileDataService();

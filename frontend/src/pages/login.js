@@ -19,10 +19,7 @@ const Login = (props) => {
     ProfileDataService.createProfile(data)
     .then(response => {
       console.log(response.data);
-<<<<<<< Updated upstream
-=======
       setUserID(response.data.user_id);
->>>>>>> Stashed changes
       props.setter(username, response.data.user_id);
     })
     .catch(e => {
