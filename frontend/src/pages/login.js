@@ -18,6 +18,10 @@ const Login = (props) => {
     ProfileDataService.createProfile(data)
     .then(response => {
       console.log(response.data);
+<<<<<<< HEAD
+=======
+      setUserID(response.data.user_id);
+>>>>>>> df03528 (???)
       props.setter(username, response.data.user_id);
     })
     .catch(e => {
