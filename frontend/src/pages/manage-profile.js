@@ -33,9 +33,10 @@ const ManageProfile = (props) => {
         const loginData = {
             loginID: userID
         }
+        console.log(loginData)
         ProfileDataService.getProfileData(loginData)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
         })
         .catch(e => {
             console.log(e);

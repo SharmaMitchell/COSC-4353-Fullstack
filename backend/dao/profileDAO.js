@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 let profiles
 
 export default class ProfileDAO {
@@ -60,7 +62,14 @@ export default class ProfileDAO {
 
     static async getProfile(userID){
         try{
+<<<<<<< Updated upstream
             const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
+=======
+            console.log(userID)
+            const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
+            // const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
+            // const getProfileResponse = await profiles.findOne({ _id: userID})
+>>>>>>> Stashed changes
             return getProfileResponse
         }
         catch (err) {
