@@ -24,7 +24,7 @@ export default class ProfileDAO {
                 zipcode: zipcode
             }
             const updateResponse = await profiles.updateOne(
-                { _id: clientID},
+                { _id:  new mongoose.Types.ObjectId(clientID)},
                 { $set: profileDoc }
             )
             return updateResponse
