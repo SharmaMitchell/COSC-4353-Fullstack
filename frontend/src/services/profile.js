@@ -9,9 +9,15 @@ class ProfileDataService {
     return http.post("/register", data);
   }
 
+<<<<<<< HEAD
   getProfileData(data) {
     return http.get("/get-profile", data);
   }
+=======
+    getProfileData(id) {
+        return http.get(`/get-profile?id=${id}`);
+    }
+>>>>>>> e292d04 (navbar stuff)
 }
 
 export default new ProfileDataService();

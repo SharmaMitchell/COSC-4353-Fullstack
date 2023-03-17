@@ -3,7 +3,7 @@ import ProfileDAO from "../dao/profileDAO.js"
 export default class ProfileController {
     static async apiUpdateProfile(req, res) {
         try {
-            const clientID = req.body.client_ID
+            const clientID = req.body.user_id
             const clientName = req.body.client_name
             const address1 = req.body.address_1
             const address2 = req.body.address_2
@@ -45,7 +45,7 @@ export default class ProfileController {
 
 static async apiGetProfileData(req, res) {
     try {
-        const clientID = req.body.loginID
+        const clientID = req.query.id
         const GetProfileResponse = await ProfileDAO.getProfile(clientID)
         res.json(GetProfileResponse)
     } 

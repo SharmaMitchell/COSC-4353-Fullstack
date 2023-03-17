@@ -24,8 +24,7 @@ export default class ProfileDAO {
                 zipcode: zipcode
             }
             const updateResponse = await profiles.updateOne(
-                //{ _id: clientID},
-                { client_name : "Clara Martin"},
+                { _id: clientID},
                 { $set: profileDoc }
             )
             return updateResponse
@@ -61,6 +60,7 @@ export default class ProfileDAO {
     static async getProfile(userID){
         try{
 <<<<<<< HEAD
+<<<<<<< HEAD
             const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
 =======
             console.log(userID)
@@ -68,6 +68,9 @@ export default class ProfileDAO {
             // const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
             // const getProfileResponse = await profiles.findOne({ _id: userID})
 >>>>>>> 4f5e077 (backend to database connection fix???)
+=======
+            const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
+>>>>>>> e292d04 (navbar stuff)
             return getProfileResponse
         }
         catch (err) {
