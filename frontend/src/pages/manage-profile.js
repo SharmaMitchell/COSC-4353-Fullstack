@@ -30,7 +30,16 @@ const ManageProfile = (props) => {
     });
 
     const getValues = (userID) => {
-        
+        const loginData = {
+            loginID: userID
+        }
+        ProfileDataService.getProfileData(loginData)
+        .then(response => {
+            // console.log(response.data);
+        })
+        .catch(e => {
+            console.log(e);
+        });
     }
     
     const handleSubmit = (e) => {
