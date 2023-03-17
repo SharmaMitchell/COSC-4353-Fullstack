@@ -29,6 +29,10 @@ function Navbar(props) {
     navigate("/signup");
   };
 
+  const Manage = () => {
+    navigate("/manage-profile");
+  };
+
   return (
     <>
       <nav id={styles.navbar}>
@@ -61,7 +65,10 @@ function Navbar(props) {
                 </li>
                 <li className={styles.loginList}>
                   {props.login ? (
+                    <Stack direction="row" spacing={2}>
+                    <Button variant="contained" onClick={Manage} color="primary">Manage Profile</Button>
                     <Button variant="outlined" onClick={props.toggle} color="white">Log Out</Button>
+                    </Stack>
                   ) : (
                     <Stack direction="row" spacing={2}>
                       <Button variant="contained" onClick={Login} color="primary">Log In</Button>
@@ -102,9 +109,12 @@ function Navbar(props) {
             </li>
             <li className={styles.loginList}>
               {props.login ? (
+                <Stack direction="column" spacing={2}>
+                <Button variant="contained" onClick={Manage} color="primary">Manage Profile</Button>
                 <Button variant="outlined" onClick={props.toggle} color="white">Log Out</Button>
+                </Stack>
               ) : (
-                <Stack direction="row" spacing={2}>
+                <Stack direction="column" spacing={2}>
                   <Button variant="contained" onClick={Login} color="primary">Log In</Button>
                   <Button variant="outlined" onClick={Signup} color="white">Sign Up</Button>
                 </Stack>

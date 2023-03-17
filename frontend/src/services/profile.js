@@ -9,8 +9,8 @@ class ProfileDataService {
         return http.post("/register", data);
     }
 
-    getProfileData(data) {
-        return http.get("/get-profile", data);
+    getProfileData(id) {
+        return http.get(`/get-profile?id=${id}`);
     }
 }
 

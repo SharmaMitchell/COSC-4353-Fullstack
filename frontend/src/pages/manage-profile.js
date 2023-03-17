@@ -23,8 +23,7 @@ const ManageProfile = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (props.state){
-            console.log("logID is: ", props.logID)
+        if (address == ''){
             getValues(props.logID)
         }
     });
@@ -33,9 +32,14 @@ const ManageProfile = (props) => {
         const loginData = {
             loginID: userID
         }
-        console.log(loginData)
-        ProfileDataService.getProfileData(loginData)
+        ProfileDataService.getProfileData(userID)
         .then(response => {
+            setName(response.data.client_name)
+            setAddress(response.data.address_1)
+            setAddress2(response.data.address_2)
+            setCity(response.data.city)
+            setState(response.data.state)
+            setZipcode(response.data.zipcode)
             console.log(response.data);
         })
         .catch(e => {
@@ -46,6 +50,7 @@ const ManageProfile = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
+            user_id: props.logID,
             client_name: name,
             address_1: address,
             address_2: address2,
@@ -53,6 +58,7 @@ const ManageProfile = (props) => {
             state: state,
             zipcode: zipcode
         }
+        console.log(data)
         ProfileDataService.editProfile(data)
         .then(response => {
           console.log(response.data);

@@ -26,8 +26,7 @@ export default class ProfileDAO {
                 zipcode: zipcode
             }
             const updateResponse = await profiles.updateOne(
-                //{ _id: clientID},
-                { client_name : "Clara Martin"},
+                { _id: clientID},
                 { $set: profileDoc }
             )
             return updateResponse
@@ -62,10 +61,7 @@ export default class ProfileDAO {
 
     static async getProfile(userID){
         try{
-            console.log(userID)
             const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
-            // const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
-            // const getProfileResponse = await profiles.findOne({ _id: userID})
             return getProfileResponse
         }
         catch (err) {
