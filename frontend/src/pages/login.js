@@ -11,7 +11,6 @@ import ProfileDataService from "../services/profile";
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userID, setUserID] = useState("");
 
   const navigate = useNavigate();
 

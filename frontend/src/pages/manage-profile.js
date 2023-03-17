@@ -46,7 +46,7 @@ const ManageProfile = (props) => {
             setCity(response.data.city)
             setState(response.data.state)
             setZipcode(response.data.zipcode)
-            console.log(response.data);
+            // console.log(response.data);
         })
         .catch(e => {
             console.log(e);
