@@ -11,6 +11,10 @@ import ProfileDataService from "../services/profile";
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+<<<<<<< HEAD
+=======
+  // const [userID, setUserID] = useState("");
+>>>>>>> 81e1209 (error/bug fixes)
 
   const navigate = useNavigate();
 
@@ -19,9 +23,13 @@ const Login = (props) => {
     .then(response => {
       console.log(response.data);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       setUserID(response.data.user_id);
 >>>>>>> df03528 (???)
+=======
+      // setUserID(response.data.user_id);
+>>>>>>> 81e1209 (error/bug fixes)
       props.setter(username, response.data.user_id);
     })
     .catch(e => {

@@ -61,8 +61,11 @@ export default class ProfileDAO {
         try{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
 =======
+=======
+>>>>>>> 81e1209 (error/bug fixes)
             console.log(userID)
             const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
 <<<<<<< HEAD
