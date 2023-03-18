@@ -11,7 +11,7 @@ import ProfileDataService from "../services/profile";
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userID, setUserID] = useState("");
+  // const [userID, setUserID] = useState("");
 
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Login = (props) => {
     ProfileDataService.createProfile(data)
     .then(response => {
       console.log(response.data);
-      setUserID(response.data.user_id);
+      // setUserID(response.data.user_id);
       props.setter(username, response.data.user_id);
     })
     .catch(e => {

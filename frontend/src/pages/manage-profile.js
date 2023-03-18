@@ -23,21 +23,13 @@ const ManageProfile = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (address == null){
+        if (props.state){ 
             getValues(props.logID)
         }
-    });
-
-    const nameTesting = (nameVal) => {
-        // console.log(nameVal)
-        setName(nameVal)
-        console.log(name)
-    }
+    },[]);
     
     const getValues = (userID) => {
-        const loginData = {
-            loginID: userID
-        }
+        console.log(userID)
         ProfileDataService.getProfileData(userID)
         .then(response => {
             setName(response.data.client_name)
@@ -99,7 +91,7 @@ const ManageProfile = (props) => {
                                     placeholder = "John Doe"
                                     inputProps = {{maxLength:50}}
                                     required
-                                    onChange={(event) => nameTesting(event.target.value)}
+                                    onChange={(event) => setName(event.target.value)}
                                 />
                                 : 
                                 <TextField
@@ -108,7 +100,7 @@ const ManageProfile = (props) => {
                                     value = {name}
                                     inputProps = {{maxLength:50}}
                                     required
-                                    onChange={(event) => nameTesting(event.target.value)}
+                                    onChange={(event) => setName(event.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
                             }
