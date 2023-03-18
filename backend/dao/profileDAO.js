@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 let profiles
 
 export default class ProfileDAO {

@@ -38,6 +38,7 @@ function App() {
       setOpenAlert(true)
       setIsFirstLogin(false)
     }
+    setLoginID(null)
     setLoginState(null)
     setIsLoggedIn(false)
     setIsFirstLogin(true)
