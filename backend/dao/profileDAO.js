@@ -65,12 +65,16 @@ export default class ProfileDAO {
 =======
             console.log(userID)
             const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
+<<<<<<< HEAD
             // const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
             // const getProfileResponse = await profiles.findOne({ _id: userID})
 >>>>>>> 4f5e077 (backend to database connection fix???)
 =======
             const getProfileResponse = await profiles.findOne({ _id: new mongoose.Types.ObjectId(userID)})
 >>>>>>> e292d04 (navbar stuff)
+=======
+            // const getProfileResponse = await profiles.findOne({ _id: ObjectID(userID)})
+>>>>>>> 7ad4d0a (mongodb)
             return getProfileResponse
         }
         catch (err) {
