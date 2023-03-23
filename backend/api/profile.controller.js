@@ -56,11 +56,8 @@ export default class ProfileController {
 
   static async apiLoginProfile(req, res) {
     try {
-      console.log(req);
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
-      console.log(clientUsername);
-      console.log(clientPassword);
 
       const loginResponse = await ProfileDAO.loginProfile(
         clientUsername,
@@ -81,7 +78,18 @@ export default class ProfileController {
         res.status(400).send({ message: "Password Mismatch" });
       }
       //return success because the inputted credentials are true
-      res.json({ status: "success" });
+      const theResponse = {
+        status: "success",
+        user_id: loginResponse._id.toString(),
+        username: loginResponse.username,
+        client_name: loginResponse.client_name,
+        address_1: loginResponse.address_1,
+        address_2: loginResponse.address_2,
+        city: loginResponse.city,
+        state: loginResponse.state,
+        zipcode: loginResponse.zipcode,
+      };
+      res.json(theResponse);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
