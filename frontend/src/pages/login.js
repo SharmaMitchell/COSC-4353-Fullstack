@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SectionTitle from '../components/SectionTitle/SectionTitle'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import SectionTitle from "../components/SectionTitle/SectionTitle";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import ProfileDataService from "../services/profile";
 
 // TODO: take in props to determine whether user is logging in or registering
@@ -11,42 +11,29 @@ import ProfileDataService from "../services/profile";
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-<<<<<<< HEAD
-=======
-  // const [userID, setUserID] = useState("");
->>>>>>> 81e1209 (error/bug fixes)
+  const [userID, setUserID] = useState("");
 
   const navigate = useNavigate();
 
   const register = (data) => {
     ProfileDataService.createProfile(data)
-    .then(response => {
-      console.log(response.data);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      setUserID(response.data.user_id);
->>>>>>> df03528 (???)
-=======
-      // setUserID(response.data.user_id);
->>>>>>> 81e1209 (error/bug fixes)
-      props.setter(username, response.data.user_id);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-    navigate("/manage-profile")
-  }
+      .then((response) => {
+        console.log(response.data);
+        props.setter(username, response.data.user_id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/manage-profile");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
       client_username: username,
-      client_password: password
-    }
-    props.login
-      ? navigate("/estimate")
-      : register(data)
+      client_password: password,
+    };
+    props.login ? navigate("/estimate") : register(data);
   };
 
   return (
