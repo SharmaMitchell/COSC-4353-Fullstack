@@ -12,6 +12,11 @@ class ProfileDataService {
     getProfileData(id) {
         return http.get(`/get-profile?id=${id}`);
     }
+/*
+    loginProfile(data) {
+        return http.post("/login",data);
+    }
+*/
 }
 
 export default new ProfileDataService();

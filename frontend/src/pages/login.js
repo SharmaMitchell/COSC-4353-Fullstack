@@ -28,6 +28,14 @@ const Login = (props) => {
     navigate("/manage-profile")
   }
 
+  /*
+  const logUser = (data) => {
+
+  }
+
+
+  */
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {

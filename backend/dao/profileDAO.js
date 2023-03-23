@@ -77,7 +77,8 @@ export default class ProfileDAO {
                 username: clientUsername,
                 password: clientPassword
             }
-            const findUser = await profiles.findOne({ username: "clientUsername", password: "clientPassword" })
+            //this query will find if there is a username and password in the database , will return null if it cant find anything
+            const findUser = await profiles.findOne({ username:loginDoc.username})
             return findUser
         } 
         catch (err) {

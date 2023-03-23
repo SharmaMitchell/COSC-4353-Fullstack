@@ -53,26 +53,34 @@ static async apiGetProfileData(req, res) {
         res.status(500).json({ error: err.message })    
     }
 }
-/* 
+ 
 static async apiLoginProfile(req, res) {
     try {
+        const clientID = req.query.id
         const clientUsername = req.body.username
         const clientPassword = req.body.password
         
 
         const loginResponse = await ProfileDAO.loginProfile()
+
         //checks if the response is null, if it is then we cant find the user
-        if(!loginResponse) {
-            res.status(400).send({"message:No User Found"})
+        if(loginResponse == null) {
+            res.status(400).send({message: "User does not exist"})
         }
-        //checks if the password is the same 
+        
+        if(loginResponse.username !== clientUsername) {
+            res.status(400).send({message:"Username Mismatch"})
+        }
+        
+        //checks if the password are the same 
         if(loginResponse.password !== clientPassword) {
-            res.status(400).send({messsage:"Password Mismatch"})
+            res.status(400).send({message:"Password Mismatch"})
         }
-        res.json({ status: "success" })
+        //return success because the inputted credentials are true
+        res.json({status: "success"})
     } 
     catch (err) {
         res.status(500).json({ error: err.message })    
     }
-} */
+} 
 }
