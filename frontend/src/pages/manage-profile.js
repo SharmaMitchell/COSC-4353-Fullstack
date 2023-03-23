@@ -116,7 +116,7 @@ const ManageProfile = (props) => {
                                     id = "address"
                                     placeholder = "9813 Nut Street"
                                     inputProps = {{maxLength:100}}
-                                    // required
+                                    required
                                     onChange={(event) => setAddress(event.target.value)}
                                 />
                                 :
@@ -125,7 +125,7 @@ const ManageProfile = (props) => {
                                     id = "address"
                                     value = {address}
                                     inputProps = {{maxLength:100}}
-                                    // required
+                                    required
                                     onChange={(event) => setAddress(event.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
