@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SectionTitle from '../components/SectionTitle/SectionTitle'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import SectionTitle from "../components/SectionTitle/SectionTitle";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import ProfileDataService from "../services/profile";
 
 // TODO: take in props to determine whether user is logging in or registering
@@ -15,44 +15,39 @@ const Login = (props) => {
 
   const navigate = useNavigate();
 
+  //TODO: Hook to backend
   const register = (data) => {
     ProfileDataService.createProfile(data)
-    .then(response => {
-      console.log(response.data);
-      // setUserID(response.data.user_id);
-      props.setter(username, response.data.user_id);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-    navigate("/manage-profile")
-  }
+      .then((response) => {
+        console.log(response.data);
+        // setUserID(response.data.user_id);
+        props.setter(username, response.data.user_id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/manage-profile");
+  };
 
-  
   const logUser = (data) => {
     ProfileDataService.loginProfile(data)
-    .then(response => {
-      console.log(response.data);
-      props.setter(username);
-    })
-    .catch(e => {
-      console.log(e);
+      .then((response) => {
+        console.log(response.data);
+        props.setter(username);
       })
-      navigate("/estimate")
-  }
-
-
-
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/estimate");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      client_username: username,
-      client_password: password
-    }
-    props.login
-      ? logUser(data)
-      : register(data)
+      username: username,
+      password: password,
+    };
+    props.login ? logUser(data) : register(data);
   };
 
   return (
