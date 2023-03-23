@@ -11,6 +11,8 @@ import Select from '@mui/material/Select';
 import ProfileDataService from "../services/profile";
 import styles from './home.module.css'
 import Stack from '@mui/material/Stack';
+import { Alert } from "@mui/material";
+import {UserAlert} from '../components/UserAlert/UserAlert';
 
 
 const ManageProfile = (props) => {
@@ -21,6 +23,8 @@ const ManageProfile = (props) => {
     const [state, setState] = useState("");
     const [zipcode, setZipcode] = useState(null);
     const navigate = useNavigate();
+
+    const [invalid, setInvalid] = useState(false);
 
     useEffect(() => {
         if (props.state){ 
@@ -59,7 +63,6 @@ const ManageProfile = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(name)
         const data = {
             user_id: props.logID,
             client_name: name,
@@ -73,11 +76,12 @@ const ManageProfile = (props) => {
         ProfileDataService.editProfile(data)
         .then(response => {
           console.log(response.data);
+          navigate("/estimate");
         })
         .catch(e => {
           console.log(e);
+          setInvalid(true)
         });
-        navigate("/estimate");
     }
 
     const Login = () => {
@@ -101,7 +105,7 @@ const ManageProfile = (props) => {
                                     label="Full Name" 
                                     id = "name"
                                     placeholder = "John Doe"
-                                    inputProps = {{maxLength:50}}
+                                    inputProps = {{maxLength:40}}
                                     required
                                     onChange={(event) => setName(event.target.value)}
                                 />
@@ -124,7 +128,7 @@ const ManageProfile = (props) => {
                                     id = "address"
                                     placeholder = "9813 Nut Street"
                                     inputProps = {{maxLength:100}}
-                                    required
+                                    // required
                                     onChange={(event) => setAddress(event.target.value)}
                                 />
                                 :
@@ -133,7 +137,7 @@ const ManageProfile = (props) => {
                                     id = "address"
                                     value = {address}
                                     inputProps = {{maxLength:100}}
-                                    required
+                                    // required
                                     onChange={(event) => setAddress(event.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
@@ -175,7 +179,7 @@ const ManageProfile = (props) => {
                                     label="City" 
                                     id = "city"
                                     value = {city}
-                                    inputProps = {{maxLength:100}}
+                                    inputProps = {{maxLength:50}}
                                     required
                                     onChange={(event) => setCity(event.target.value)}
                                     InputLabelProps={{ shrink: true }}
@@ -335,6 +339,7 @@ const ManageProfile = (props) => {
                             <Button type="submit" variant="contained" color="primary">SAVE</Button>
                         </Grid>
                     </Grid>
+                    {invalid == true ? <Alert severity="error">Invalid entry, please try again</Alert> : <div></div>}
                 </form>
             </div>
             ) : (
