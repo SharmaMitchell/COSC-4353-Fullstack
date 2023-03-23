@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SectionTitle from '../components/SectionTitle/SectionTitle'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import SectionTitle from "../components/SectionTitle/SectionTitle";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import ProfileDataService from "../services/profile";
 
 // TODO: take in props to determine whether user is logging in or registering
 // e.g. if props.login === true, then display "login" button, else display "register" button
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userID, setUserID] = useState("");
 
   const navigate = useNavigate();
 
+  const register = (data) => {
+    ProfileDataService.createProfile(data)
+      .then((response) => {
+        console.log(response.data);
+        props.setter(username, response.data.user_id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/manage-profile");
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setter(username);
-    props.login
-      ? navigate("/estimate")
-      : navigate("/manage-profile");
+    const data = {
+      client_username: username,
+      client_password: password,
+    };
+    props.login ? navigate("/estimate") : register(data);
   };
 
   return (
