@@ -21,7 +21,7 @@ const Login = (props) => {
       .then((response) => {
         console.log(response.data);
         // setUserID(response.data.user_id);
-        props.setter(username, response.data.user_id);
+        props.setter(username, response.data.user_id); //TODO: Set all profile info to use in profile management page
       })
       .catch((e) => {
         console.log(e);
@@ -33,7 +33,7 @@ const Login = (props) => {
     ProfileDataService.loginProfile(data)
       .then((response) => {
         console.log(response.data);
-        props.setter(username);
+        props.setter(username, response.data.user_id); //TODO: Set all profile info to use in profile management page
       })
       .catch((e) => {
         console.log(e);

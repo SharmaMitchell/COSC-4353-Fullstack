@@ -81,13 +81,13 @@ export default class ProfileController {
       const theResponse = {
         status: "success",
         user_id: loginResponse._id.toString(),
-        username: loginResponse.username,
-        client_name: loginResponse.client_name,
-        address_1: loginResponse.address_1,
-        address_2: loginResponse.address_2,
-        city: loginResponse.city,
-        state: loginResponse.state,
-        zipcode: loginResponse.zipcode,
+        // username: loginResponse.username,
+        // client_name: loginResponse.client_name,
+        // address_1: loginResponse.address_1,
+        // address_2: loginResponse.address_2,
+        // city: loginResponse.city,
+        // state: loginResponse.state,
+        // zipcode: loginResponse.zipcode,
       };
       res.json(theResponse);
     } catch (err) {
