@@ -56,7 +56,6 @@ static async apiGetProfileData(req, res) {
  
 static async apiLoginProfile(req, res) {
     try {
-        const clientID = req.query.id
         const clientUsername = req.body.username
         const clientPassword = req.body.password
         
@@ -67,7 +66,7 @@ static async apiLoginProfile(req, res) {
         if(loginResponse == null) {
             res.status(400).send({message: "User does not exist"})
         }
-        
+
         if(loginResponse.username !== clientUsername) {
             res.status(400).send({message:"Username Mismatch"})
         }

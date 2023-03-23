@@ -28,13 +28,21 @@ const Login = (props) => {
     navigate("/manage-profile")
   }
 
-  /*
+  
   const logUser = (data) => {
-
+    ProfileDataService.loginProfile(data)
+    .then(response => {
+      console.log(response.data);
+      props.setter(username);
+    })
+    .catch(e => {
+      console.log(e);
+      })
+      navigate("/estimate")
   }
 
 
-  */
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,7 +51,7 @@ const Login = (props) => {
       client_password: password
     }
     props.login
-      ? navigate("/estimate")
+      ? logUser(data)
       : register(data)
   };
 
