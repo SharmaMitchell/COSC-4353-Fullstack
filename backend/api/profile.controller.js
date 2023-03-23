@@ -56,23 +56,19 @@ static async apiGetProfileData(req, res) {
 /* 
 static async apiLoginProfile(req, res) {
     try {
-        const clientID = req.body.client_ID
-        const clientName = req.body.client_name
-        const address1 = req.body.address_1
-        const address2 = req.body.address_2
-        const city = req.body.city
-        const state = req.body.state
-        const zipcode = req.body.zipcode
+        const clientUsername = req.body.username
+        const clientPassword = req.body.password
+        
 
-        const ProfileResponse = await ProfileDAO.updateProfile(
-            clientID,
-            clientName,
-            address1,
-            address2,
-            city,
-            state,
-            zipcode
-        )
+        const loginResponse = await ProfileDAO.loginProfile()
+        //checks if the response is null, if it is then we cant find the user
+        if(!loginResponse) {
+            res.status(400).send({"message:No User Found"})
+        }
+        //checks if the password is the same 
+        if(loginResponse.password !== clientPassword) {
+            res.status(400).send({messsage:"Password Mismatch"})
+        }
         res.json({ status: "success" })
     } 
     catch (err) {

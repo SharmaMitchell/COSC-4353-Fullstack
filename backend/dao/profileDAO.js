@@ -69,23 +69,20 @@ export default class ProfileDAO {
             return { error: err }
         }
     }
-
-    /* static async loginProfile(clientUsername, clientPassword) {
+    
+    
+    static async loginProfile(clientUsername, clientPassword) {
         try {
             const loginDoc = {
                 username: clientUsername,
                 password: clientPassword
             }
-            const updateResponse = await profiles.updateOne(
-                //{ _id: clientID},
-                { client_name : "Clara Martin"},
-                { $set: profileDoc }
-            )
-            return updateResponse
+            const findUser = await profiles.findOne({ username: "clientUsername", password: "clientPassword" })
+            return findUser
         } 
         catch (err) {
-            console.error(`Unable to update profile: ${err}`)
+            console.error(`Unable to find Username or Password: ${err}`)
             return { error: err }
         }
-    } */
+    } 
 }
