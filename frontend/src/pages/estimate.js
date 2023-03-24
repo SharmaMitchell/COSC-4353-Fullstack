@@ -20,8 +20,10 @@ const Estimate = (props) => {
     const data = {
       gallons: gallons,
       //address: address,
+      in_state: inState,
       date: date,
     };
+    
     console.log(data);
 
   
@@ -58,6 +60,7 @@ const Estimate = (props) => {
       });
     console.log(inState);
   }, [userID]);
+
 
   return (
     <div>

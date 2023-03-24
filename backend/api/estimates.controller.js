@@ -48,7 +48,10 @@ export default class EstimatesController {
       const gallonsRequested = req.body.gallons_requested
       const profitFactor = .10
 
+      const inState = req.body.in_state
+
       let locationFactor
+      
       let historyFactor
       let gallonsFactor
 
