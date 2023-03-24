@@ -52,6 +52,13 @@ export default class EstimatesController {
       let historyFactor
       let gallonsFactor
 
+      if (gallonsRequested > 1000){
+        gallonsFactor = .02
+      } else{
+        gallonsFactor = .03
+      }
+
+      
       
       // Calculate the estimate
       const margin = currentPrice + (currentPrice * (locationFactor - historyFactor + gallonsFactor + profitFactor))
@@ -60,7 +67,7 @@ export default class EstimatesController {
       const Total_amount_due = amount_unrounded.toFixed(2)
 
       // Send the estimate as a response 
-      res.json({ estimate });
+      res.json({ suggested_price, Total_amount_due });
 
     } catch (err) {
       console.error(err);
