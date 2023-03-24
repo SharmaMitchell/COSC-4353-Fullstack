@@ -4,7 +4,10 @@ import dotenv from "dotenv";
 import EstimatesDAO from "./dao/estimatesDAO.js";
 import { MongoClient } from "mongodb";
 
+require('expect-more-jest');
+
 dotenv.config();
+
 
 describe("Server", () => {
   let client;
@@ -49,5 +52,49 @@ describe("Server", () => {
       );
       expect(response.body.estimates).toEqual([]);
     });
+  });
+
+
+
+  // router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile)
+  describe("PUT /api/v1/manage-profile", () => {
+    it("should return a 200 status code for valid json fields", async () => {
+      const response = await supertest(server).put("/api/v1/manage-profile").send({
+        "client_name": "Clara Martin",
+        "address_1" : "5500 Sampson",
+        "address_2" : "Apt. 5678",
+        "city" : "Houston",
+        "state" : "TX",
+        "zipcode" : "75555"
+      });
+      expect(response.status).toBe(200);
+    });
+  });
+
+
+
+  // router.route("/get-profile").get(ProfileCtrl.apiGetProfileData) 
+  describe("GET /api/v1/get-profile", () => {
+    it("should return a 200 status code for a valid client ID", async () => {
+      const response = await supertest(server).get("/api/v1/get-profile?id=641cee739d585d4d14a2e2ab");
+      expect(response.status).toBe(200);
+    });
+
+    it("should return a JSON object with profile information", async () => {
+      const response = await supertest(server).get("/api/v1/get-profile?id=641cee739d585d4d14a2e2ab");
+      expect(response.body).toEqual(
+        expect.objectContaining({
+          username: expect.any(String),
+          password: expect.any(String),
+          // client_name: expect.toBeNullableOf(String)
+          // address_1: null,
+          // address_2: null,
+          // city: null,
+          // state: null,
+          // zipcode: null
+        })
+      );
+    });
+
   });
 });
