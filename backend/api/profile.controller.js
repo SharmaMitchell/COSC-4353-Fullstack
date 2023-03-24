@@ -44,16 +44,15 @@ export default class ProfileController {
 
   static async apiCreateProfile(req, res) {
     try {
-      const clientUsername = req.body.client_username;
-      const clientPassword = req.body.client_password;
-
+      const clientUsername = req.body.username;
+      const clientPassword = req.body.password;
       const CreateProfileResponse = await ProfileDAO.createProfile(
         clientUsername,
         clientPassword
       );
       res.json({
         status: "success",
-        user_id: CreateProfileResponse.insertedId.toString(),
+        user_id: CreateProfileResponse.insertedId.toString()
       });
     } catch (err) {
       res.status(500).json({ error: err.message });
