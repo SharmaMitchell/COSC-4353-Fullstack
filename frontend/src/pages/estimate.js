@@ -23,6 +23,16 @@ const Estimate = (props) => {
       date: date,
     };
     console.log(data);
+
+  
+  fetch(`http://localhost:3000/estimate`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
   };
   function formatDate(date) {
     const year = date.getFullYear();

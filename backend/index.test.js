@@ -27,6 +27,7 @@ describe("Server", () => {
     server.close();
   });
 
+  // estimate history tests
   describe("GET /api/v1/estimates/:clientID", () => {
     it("should return a 200 status code for a valid client ID", async () => {
       const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
@@ -50,4 +51,23 @@ describe("Server", () => {
       expect(response.body.estimates).toEqual([]);
     });
   });
+
+  // calculate estimate tests
+
+  //estimate
+  describe("GET /api/v1/estimates/:clientID", () => {
+    it("should return a 200 status code for a valid client ID", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.status).toBe(200);
+    });
+  });
+
+  //save 
+  describe("GET /api/v1/estimates/:clientID", () => {
+    it("should return a 200 status code for a valid client ID", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.status).toBe(200);
+    });
+  });
+
 });

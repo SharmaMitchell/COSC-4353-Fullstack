@@ -39,4 +39,37 @@ export default class EstimatesController {
     }
     res.json(response)
   }
+
+
+  static async apiCalculateEstimate(req, res) {
+    try {
+      // Get input data from the request
+      const currentPrice = 1.50
+      const gallonsRequested = req.body.gallons_requested
+      const profitFactor = .10
+
+      let locationFactor
+      let historyFactor
+      let gallonsFactor
+
+      
+      // Calculate the estimate
+      const margin = currentPrice + (currentPrice * (locationFactor - historyFactor + gallonsFactor + profitFactor))
+      const suggested_price = margin.toFixed(2)
+      const amount_unrounded = gallonsRequested * margin
+      const Total_amount_due = amount_unrounded.toFixed(2)
+
+      // Send the estimate as a response 
+      res.json({ estimate });
+
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  }
 }
+// calculation formula
+// Margin =  Current Price * (Location Factor - Rate History Factor + Gallons Requested Factor + Company Profit Factor)
+// Margin => (.02 - .01 + .02 + .1) * 1.50 = .195
+// Suggested Price/gallon => 1.50 + .195 = $1.695
+// Total Amount Due => 1500 * 1.695 = $2542.50
