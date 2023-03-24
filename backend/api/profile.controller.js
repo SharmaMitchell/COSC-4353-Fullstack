@@ -85,13 +85,18 @@ export default class ProfileController {
       );
 
       //checks if the response is null, if it is then we cant find the user
-      if (loginResponse == null) {
+      if (!loginResponse) {
         res.status(400).send({ message: "No server response" });
         return;
       }
 
       if (loginResponse.username !== clientUsername) {
-        res.status(400).send({ message: "User does not exist" });
+        res.status(400).send({
+          message: "User does not exist",
+          responseUsername: loginResponse.username,
+          clientUsername: clientUsername,
+          serverResponse: loginResponse,
+        });
         return;
       }
 
@@ -102,7 +107,7 @@ export default class ProfileController {
       }
       //return success because the inputted credentials are true
       const theResponse = {
-        status: 200,
+        status: "success",
         user_id: loginResponse._id.toString(),
       };
       res.json(theResponse);

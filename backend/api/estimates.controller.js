@@ -31,7 +31,7 @@ export default class EstimatesController {
     let clientId = req.params.clientID || ""
 
     const estimatesList = await EstimatesDAO.getEstimates(clientId)
-    console.log(estimatesList)
+    // console.log(estimatesList)
 
     let response = {
       estimates: estimatesList,

@@ -81,20 +81,33 @@ export default class ProfileDAO {
 
   static async loginProfile(clientUsername, clientPassword) {
     try {
+      if (!clientUsername || !clientPassword) {
+        throw new Error("Username or password cannot be empty");
+      }
+
       const loginDoc = {
-        username: clientUsername?.toString(),
-        password: clientPassword?.toString(),
+        username: clientUsername.toString(),
+        password: clientPassword.toString(),
       };
+      console.log("loginDoc: ", loginDoc);
+
       //this query will find if there is a username and password in the database , will return null if it cant find anything
       const findUser = await profiles.findOne({
         username: loginDoc.username,
         password: loginDoc.password,
       });
-      console.log(findUser);
+      console.log("findUser: ", findUser);
+
+      if (!findUser) {
+        throw new Error("Username or password is incorrect");
+      }
+
       return findUser;
     } catch (err) {
       console.error(`Unable to find Username or Password: ${err}`);
-      return { error: err };
+      return {
+        error: err.message,
+      };
     }
   }
 }

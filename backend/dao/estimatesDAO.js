@@ -38,7 +38,7 @@ export default class estimatesDAO {
                                     : await estimates.find()
           // Convert the cursor to an array of estimates
           const estimatesArray = await cursor.toArray()
-          console.log(estimatesArray)
+        //   console.log(estimatesArray)
           // Return the array of estimates
           return estimatesArray
         } catch (e) {

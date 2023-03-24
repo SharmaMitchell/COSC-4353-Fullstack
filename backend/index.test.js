@@ -5,6 +5,7 @@ import EstimatesDAO from "./dao/estimatesDAO.js";
 import { MongoClient } from "mongodb";
 
 require("expect-more-jest");
+const request = require("request");
 
 dotenv.config();
 
@@ -203,19 +204,26 @@ describe("Server", () => {
 
   //Login tests
   describe("POST /api/v1/login", () => {
-    it("should return a 200 status code with a valid username and password", async () => {
-      const response = await supertest(server)
-        .post("/api/v1/login")
-        .send({ username: "user111", password: "password" });
-      console.log(response);
-      expect(response.status).toBe(200);
+    it("should return a 200 status code with a valid username and password", (done) => {
+      request.get(
+        "http://localhost:8000/api/v1/login",
+        { json: { username: "user111", password: "password" } },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
     });
 
-    it("should return a 400 status code with invalid credentials", async () => {
-      const response = await supertest(server)
-        .post("/api/v1/login")
-        .send({ username: "invaliduser", password: "invalidpassword" });
-      expect(response.status).toBe(400);
+    it("should return a 400 status code with invalid credentials", (done) => {
+      request.get(
+        "http://localhost:8000/api/v1/login",
+        { json: { username: "invaliduser", password: "invalidpassword" } },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(400);
+          done();
+        }
+      );
     });
   });
 });

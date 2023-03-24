@@ -17,7 +17,8 @@
     "express": "^4.18.2",
     "mongodb": "^4.14.0",
     "mongoose": "^7.0.3",
-    "notenv": "^2.0.3"
+    "notenv": "^2.0.3",
+    "request": "^2.88.2"
   },
   "description": "",
   "devDependencies": {
