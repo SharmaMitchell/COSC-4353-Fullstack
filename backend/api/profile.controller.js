@@ -51,7 +51,7 @@ export default class ProfileController {
         clientPassword
       );
       res.json({
-        status: "success test",
+        status: "success",
         user_id: CreateProfileResponse.insertedId.toString()
       });
     } catch (err) {
