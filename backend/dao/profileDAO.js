@@ -37,7 +37,6 @@ export default class ProfileDAO {
       };
       const updateResponse = await profiles.updateOne(
         { _id: new mongoose.Types.ObjectId(clientID) },
-        // { client_name: "Clara Martin" },
         { $set: profileDoc }
       );
       return updateResponse;
@@ -76,6 +75,25 @@ export default class ProfileDAO {
       return getProfileResponse;
     } catch (err) {
       console.error(`Unable to get profile data in profileDAO: ${err}`);
+      return { error: err };
+    }
+  }
+
+  static async loginProfile(clientUsername, clientPassword) {
+    try {
+      const loginDoc = {
+        username: clientUsername?.toString(),
+        password: clientPassword?.toString(),
+      };
+      //this query will find if there is a username and password in the database , will return null if it cant find anything
+      const findUser = await profiles.findOne({
+        username: loginDoc.username,
+        password: loginDoc.password,
+      });
+      console.log(findUser);
+      return findUser;
+    } catch (err) {
+      console.error(`Unable to find Username or Password: ${err}`);
       return { error: err };
     }
   }

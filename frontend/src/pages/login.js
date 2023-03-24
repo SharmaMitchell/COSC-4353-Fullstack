@@ -19,7 +19,8 @@ const Login = (props) => {
     ProfileDataService.createProfile(data)
       .then((response) => {
         console.log(response.data);
-        props.setter(username, response.data.user_id);
+        // setUserID(response.data.user_id);
+        props.setter(username, response.data.user_id); //TODO: Set all profile info to use in profile management page
       })
       .catch((e) => {
         console.log(e);
@@ -27,13 +28,25 @@ const Login = (props) => {
     navigate("/manage-profile");
   };
 
+  const logUser = (data) => {
+    ProfileDataService.loginProfile(data)
+      .then((response) => {
+        console.log(response.data);
+        props.setter(username, response.data.user_id); //TODO: Set all profile info to use in profile management page
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/estimate");
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      client_username: username,
-      client_password: password,
+      username: username,
+      password: password,
     };
-    props.login ? navigate("/estimate") : register(data);
+    props.login ? logUser(data) : register(data);
   };
 
   return (
