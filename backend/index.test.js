@@ -180,6 +180,26 @@ describe("Server", () => {
       expect(response.body.estimates).toEqual([]);
     });
   });
+  
+  //Login tests
+  describe("POST /api/v1/login", () => {
+    it("should return a 200 status code with a valid username and password", async() => {
+      const response = await supertest(server).post(
+        "/api/v1/login"
+      )
+      .send({"username": "user111","password": "password111"});
+      expect(response.status).toBe(200);
+    });
+
+    it("should return a 401 status code with a invalid username or password", async() => {
+      const response = await supertest(server).post(
+        "/api/v1/login"
+      )
+      .send({"username": "coolgamer","password": "pass"});
+      expect(response.status).toBe(401);
+    });
+  });
+
 
   
 });
