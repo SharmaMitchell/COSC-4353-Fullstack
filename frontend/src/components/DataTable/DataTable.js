@@ -10,8 +10,8 @@ import Paper from "@mui/material/Paper";
 // import tableData from './example-data.json'
 
 function DataTable(props) {
-  // const USER_ID = props.userID
-  const USER_ID = "63f82d40be153fa3c4b62062";
+  const USER_ID = props.userID;
+  // const USER_ID = "63f82d40be153fa3c4b62062";
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:5000/api/v1/estimates/${USER_ID ? USER_ID : ""}`)
@@ -46,6 +46,12 @@ function DataTable(props) {
       theDate.getMonth() + 1
     }/${theDate.getDate()}/${theDate.getFullYear()}, ${formatTime(theDate)}`;
   };
+  const formatDeliveryDate = (dateString) => {
+    let theDate = new Date(dateString);
+    return `${
+      theDate.getMonth() + 1
+    }/${theDate.getDate()}/${theDate.getFullYear()}`;
+  };
   return (
     <TableContainer component={Paper}>
       <Table aria-label="estimate history table">
@@ -70,7 +76,7 @@ function DataTable(props) {
                 {row.gallonsRequested.toLocaleString("en-US")}
               </TableCell>
               <TableCell>{row.deliveryAddress}</TableCell>
-              <TableCell>{formatDate(row.deliveryDate)}</TableCell>
+              <TableCell>{formatDeliveryDate(row.deliveryDate)}</TableCell>
               <TableCell>
                 $
                 {parseFloat(row.suggestedPrice)

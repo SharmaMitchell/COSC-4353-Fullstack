@@ -86,7 +86,7 @@ function App() {
           <PageContainer>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/history" element={<History />} />
+              <Route path="/history" element={<History userID={loginID} />} />
               <Route
                 path="/login"
                 element={
