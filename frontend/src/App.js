@@ -39,10 +39,10 @@ function App() {
       setIsFirstLogin(false);
     }
     setLoginID(null)
-    setLoginState(null)
-    setIsLoggedIn(false)
-    setIsFirstLogin(true)
-  }
+    setLoginState(null);
+    setIsLoggedIn(false);
+    setIsFirstLogin(true);
+  };
 
   // Login state change handler, for login alert
   useEffect(() => {
