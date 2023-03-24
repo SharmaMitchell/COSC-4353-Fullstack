@@ -10,13 +10,12 @@ const router = express.Router();
 //     const mockData = JSON.parse(fs.readFileSync("api/mockData/example-data.json"))
 //     res.send(mockData)
 // })
-router.route("/:clientID").get(estimatesController.apiGetEstimates);
-router.route("/:clientID").post(estimatesController.apiUpdateEstimates);
+router.route("/estimates/:clientID").get(estimatesController.apiGetEstimates);
+router.route("/estimates/:clientID").post(estimatesController.apiUpdateEstimates);
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile);
 router.route("/get-profile").get(ProfileCtrl.apiGetProfileData);
 router.route("/register").post(ProfileCtrl.apiCreateProfile);
 router.route("/login").post(ProfileCtrl.apiLoginProfile);
 router.route("/get-estimate").get((req, res) => res.send("hello world"));
-router.route("/save-estimate").post((req, res) => res.send("hello world"));
 
 export default router;
