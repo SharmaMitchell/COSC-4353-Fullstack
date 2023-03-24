@@ -11,13 +11,11 @@ const router = express.Router();
 //     res.send(mockData)
 // })
 router.route("/:clientID").get(estimatesController.apiGetEstimates);
-router.route("/:clientID").post(estimatesController.apiUpdateEstimates);
+// router.route("/:clientID").post(estimatesController.apiUpdateEstimates);
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile);
 router.route("/get-profile").get(ProfileCtrl.apiGetProfileData);
 router.route("/register").post(ProfileCtrl.apiCreateProfile);
 router.route("/login").post(ProfileCtrl.apiLoginProfile);
-
-router.route("/get-estimate").get(estimatesController.apiCalculateEstimate);
-router.route("/save-estimate").post(estimatesController.apiCalculateEstimate);
+router.route("/get-estimate").post(estimatesController.apiCalculateEstimate);
 
 export default router;

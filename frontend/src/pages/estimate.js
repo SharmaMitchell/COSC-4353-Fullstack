@@ -16,27 +16,34 @@ const Estimate = (props) => {
   today = formatDate(today);
 
   const handleSubmit = (e) => {
+    // get quote from backend
     e.preventDefault();
     const data = {
       gallons: gallons,
       //address: address,
       in_state: inState,
-      date: date,
+      // date: date,
     };
-    
+
     console.log(data);
 
-  
-  fetch(`http://localhost:3000/estimate`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+    fetch(`http://localhost:5000/api/v1/get-estimate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // TODO: put this data in the form
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-  
+
   function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -49,7 +56,7 @@ const Estimate = (props) => {
     // fetch to api/get-profile, passing in user id
     console.log(userID);
     if (userID == undefined) return;
-    fetch(`http://localhost:5000/api/get-profile?id=${userID}`)
+    fetch(`http://localhost:5000/api/v1/get-profile?id=${userID}`)
       .then((res) => res.json())
       .then((data) => {
         // if address is in state, set inState to true
@@ -60,7 +67,6 @@ const Estimate = (props) => {
       });
     console.log(inState);
   }, [userID]);
-
 
   return (
     <div>
