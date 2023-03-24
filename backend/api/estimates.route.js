@@ -11,9 +11,7 @@ const router = express.Router();
 //     res.send(mockData)
 // })
 router.route("/estimates/:clientID").get(estimatesController.apiGetEstimates);
-router
-  .route("/estimates/:clientID")
-  .post(estimatesController.apiUpdateEstimates);
+router.route("/estimates/:clientID").post(estimatesController.apiUpdateEstimates);
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile);
 router.route("/get-profile").get(ProfileCtrl.apiGetProfileData);
 router.route("/register").post(ProfileCtrl.apiCreateProfile);
