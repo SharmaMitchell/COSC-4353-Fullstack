@@ -15,21 +15,24 @@ import { UserAlert } from "./components/UserAlert/UserAlert";
 
 function App() {
   // Login state
-  const [loginState, setLoginState] = useLocalStorage('loginState', null)
-  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null)
-  const [loginID, setLoginID] = useLocalStorage("", null)
-  const [isFirstLogin, setIsFirstLogin] = useLocalStorage('firstLogin', loginState == null)
+  const [loginState, setLoginState] = useLocalStorage("loginState", null);
+  const [isLoggedIn, setIsLoggedIn] = useState(loginState != null);
+  const [loginID, setLoginID] = useLocalStorage("", null);
+  const [isFirstLogin, setIsFirstLogin] = useLocalStorage(
+    "firstLogin",
+    loginState == null
+  );
 
   // Alert state (for login/signup)
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   // Login state setter
-  const setLogin = (username, userID) =>{
-    setLoginState(username)
-    setLoginID(userID)
-    setIsLoggedIn(true)
-  }
+  const setLogin = (username, userID) => {
+    setLoginState(username);
+    setLoginID(userID);
+    setIsLoggedIn(true);
+  };
 
   // Logout setter
   const handleLogOut = () => {
@@ -38,7 +41,7 @@ function App() {
       setOpenAlert(true);
       setIsFirstLogin(false);
     }
-    setLoginID(null)
+    setLoginID(null);
     setLoginState(null);
     setIsLoggedIn(false);
     setIsFirstLogin(true);
@@ -46,13 +49,13 @@ function App() {
 
   // Login state change handler, for login alert
   useEffect(() => {
-      console.log("loginState updated:", loginState);
-      console.log("loginID updated:", loginID);
-      if(isLoggedIn && isFirstLogin){
-        setAlertMessage(`Successfully logged in: Welcome, ${loginState}!`)
-        setOpenAlert(true)
-        setIsFirstLogin(false)
-      }
+    console.log("loginState updated:", loginState);
+    console.log("loginID updated:", loginID);
+    if (isLoggedIn && isFirstLogin) {
+      setAlertMessage(`Successfully logged in: Welcome, ${loginState}!`);
+      setOpenAlert(true);
+      setIsFirstLogin(false);
+    }
   }, [loginState]);
 
   // MUI theme
@@ -81,13 +84,26 @@ function App() {
           <ScrollToTop />
           <Navbar login={loginState} toggle={handleLogOut} />
           <PageContainer>
-            <Routes> 
-              <Route path='/' element={<Home/>} />
-              <Route path='/history' element={<History/>} />
-              <Route path='/login' element={<Login login = {true} state={isLoggedIn} setter={setLogin}/>}/>
-              <Route path='/signup' element={<Login login = {false} state={isLoggedIn} setter={setLogin}/>}/>
-              <Route path='/estimate' element={<Estimate/>} />
-              <Route path='/manage-profile' element={<ManageProfile state = {isLoggedIn} logID = {loginID}/>} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/history" element={<History />} />
+              <Route
+                path="/login"
+                element={
+                  <Login login={true} state={isLoggedIn} setter={setLogin} />
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <Login login={false} state={isLoggedIn} setter={setLogin} />
+                }
+              />
+              <Route path="/estimate" element={<Estimate userID={loginID} />} />
+              <Route
+                path="/manage-profile"
+                element={<ManageProfile state={isLoggedIn} logID={loginID} />}
+              />
             </Routes>
           </PageContainer>
           <UserAlert
