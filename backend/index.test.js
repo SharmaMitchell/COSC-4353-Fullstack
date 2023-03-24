@@ -158,4 +158,28 @@ describe("Server", () => {
     });
 
   });
+
+  describe("GET /api/v1/estimates/:clientID", () => {
+    it("should return a 200 status code for a valid client ID", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.status).toBe(200);
+    });
+    it("should return a JSON object with estimates and client_id keys", async () => {
+      const response = await supertest(server).get("/api/v1/estimates/63f82d40be153fa3c4b62062");
+      expect(response.body).toEqual(
+        expect.objectContaining({
+          estimates: expect.any(Array),
+          client_id: expect.any(String),
+        })
+      );
+    });
+    it("should return an empty array if no estimates are found for a client ID", async () => {
+      const response = await supertest(server).get(
+        "/api/v1/estimates/client_without_estimates"
+      );
+      expect(response.body.estimates).toEqual([]);
+    });
+  });
+
+  
 });
