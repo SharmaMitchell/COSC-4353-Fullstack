@@ -37,7 +37,6 @@ export default class ProfileDAO {
       };
       const updateResponse = await profiles.updateOne(
         { _id: new mongoose.Types.ObjectId(clientID) },
-        // { client_name: "Clara Martin" },
         { $set: profileDoc }
       );
       return updateResponse;
@@ -70,12 +69,9 @@ export default class ProfileDAO {
 
   static async getProfile(userID) {
     try {
-      console.log(userID);
       const getProfileResponse = await profiles.findOne({
         _id: new mongoose.Types.ObjectId(userID),
       });
-      // const getProfileResponse = await profiles.findOne({ _id: new ObjectId(userID)})
-      // const getProfileResponse = await profiles.findOne({ _id: userID})
       return getProfileResponse;
     } catch (err) {
       console.error(`Unable to get profile data in profileDAO: ${err}`);
@@ -83,22 +79,22 @@ export default class ProfileDAO {
     }
   }
 
-  /* static async loginProfile(clientUsername, clientPassword) {
-        try {
-            const loginDoc = {
-                username: clientUsername,
-                password: clientPassword
-            }
-            const updateResponse = await profiles.updateOne(
-                //{ _id: clientID},
-                { client_name : "Clara Martin"},
-                { $set: profileDoc }
-            )
-            return updateResponse
-        } 
-        catch (err) {
-            console.error(`Unable to update profile: ${err}`)
-            return { error: err }
-        }
-    } */
+  static async loginProfile(clientUsername, clientPassword) {
+    try {
+      const loginDoc = {
+        username: clientUsername?.toString(),
+        password: clientPassword?.toString(),
+      };
+      //this query will find if there is a username and password in the database , will return null if it cant find anything
+      const findUser = await profiles.findOne({
+        username: loginDoc.username,
+        password: loginDoc.password,
+      });
+      console.log(findUser);
+      return findUser;
+    } catch (err) {
+      console.error(`Unable to find Username or Password: ${err}`);
+      return { error: err };
+    }
+  }
 }
