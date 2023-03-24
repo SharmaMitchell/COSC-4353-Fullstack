@@ -8,6 +8,8 @@ const Estimate = (props) => {
   const [gallons, setGallons] = useState(0);
   const [date, setDate] = useState("");
   const [inState, setInState] = useState(false);
+  const [suggestedPrice, setSuggestedPrice] = useState(0);
+  const [total, setTotal] = useState(0);
   const userID = props.userID;
 
   //const [address, setAddress] = useState('')
@@ -37,7 +39,8 @@ const Estimate = (props) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // TODO: put this data in the form
+        setSuggestedPrice(data.suggested_price);
+        setTotal(data.total_amount_due);
       })
       .catch((error) => {
         console.error(error);
@@ -161,7 +164,7 @@ const Estimate = (props) => {
             <TextField
               label="Suggested Price/Gallon"
               id="price"
-              value="$6 per gallon"
+              value={`$${suggestedPrice} per Gallon`}
               InputProps={{
                 readOnly: true,
               }}
@@ -184,7 +187,7 @@ const Estimate = (props) => {
             <TextField
               label="Total Amount Due"
               id="amount"
-              value="$5300"
+              value={`$${total}`}
               InputProps={{
                 readOnly: true,
               }}
