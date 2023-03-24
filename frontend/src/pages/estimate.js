@@ -10,6 +10,7 @@ const Estimate = (props) => {
   const [inState, setInState] = useState(false);
   const [suggestedPrice, setSuggestedPrice] = useState(0);
   const [total, setTotal] = useState(0);
+  const [address, setAddress] = useState("");
   const userID = props.userID;
 
   //const [address, setAddress] = useState('')
@@ -47,6 +48,44 @@ const Estimate = (props) => {
       });
   };
 
+  const handleSave = (e) => {
+    // save quote to backend
+    /* 
+    
+            <TableCell style={headStyle}>Estimate Date</TableCell>
+            <TableCell style={headStyle}>Gallons Requested</TableCell>
+            <TableCell style={headStyle}>Delivery Address</TableCell>
+            <TableCell style={headStyle}>Delivery Date</TableCell>
+            <TableCell style={headStyle}>Suggested Price</TableCell>
+            <TableCell style={headStyle}>Fuel Quote</TableCell>
+    */
+    e.preventDefault();
+    const data = {
+      gallons: gallons,
+      //address: address,
+      in_state: inState,
+      // date: date,
+    };
+
+    console.log(data);
+
+    fetch(`http://localhost:5000/api/v1/save-estimate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) =>
+        response.status == 200
+          ? console.log("Estimate saved!")
+          : console.log("Error saving estimate")
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -67,6 +106,15 @@ const Estimate = (props) => {
         if (data.state == "TX") {
           setInState(true);
         }
+        const address = data.address_1;
+        const address2 = data.address_2;
+        const city = data.city;
+        const state = data.state;
+        const zip = data.zipcode;
+        const fullAddress = `${address}${
+          address2 ? ` ${address2}` : ""
+        }, ${city}, ${state}, ${zip}`;
+        setAddress(fullAddress);
       });
     console.log(inState);
   }, [userID]);
@@ -83,7 +131,7 @@ const Estimate = (props) => {
           flexDirection: "column",
         }}
       >
-        <Grid container spacing={2} sx={{ maxWidth: "250px" }}>
+        <Grid container spacing={2} sx={{ maxWidth: "320px" }}>
           <Grid item xs={12}>
             <TextField
               required
@@ -108,7 +156,7 @@ const Estimate = (props) => {
             <TextField
               label="Delivery Address"
               id="address"
-              value="123 Drive"
+              value={address}
               InputProps={{
                 readOnly: true,
               }}
@@ -158,7 +206,7 @@ const Estimate = (props) => {
         <Grid
           container
           spacing={2}
-          sx={{ maxWidth: "250px", marginTop: "30px" }}
+          sx={{ maxWidth: "320px", marginTop: "30px" }}
         >
           <Grid item xs={12}>
             <TextField
@@ -212,6 +260,11 @@ const Estimate = (props) => {
           </Grid>
         </Grid>
       </form>
+      <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
+        <Button variant="contained" color="primary">
+          Save Quote
+        </Button>
+      </Grid>
     </div>
   );
 };

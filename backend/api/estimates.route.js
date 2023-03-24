@@ -10,7 +10,7 @@ const router = express.Router();
 //     const mockData = JSON.parse(fs.readFileSync("api/mockData/example-data.json"))
 //     res.send(mockData)
 // })
-router.route("/:clientID").get(estimatesController.apiGetEstimates);
+router.route("/estimates/:clientID").get(estimatesController.apiGetEstimates);
 // router.route("/:clientID").post(estimatesController.apiUpdateEstimates);
 router.route("/manage-profile").put(ProfileCtrl.apiUpdateProfile);
 router.route("/get-profile").get(ProfileCtrl.apiGetProfileData);
