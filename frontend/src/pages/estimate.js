@@ -61,15 +61,18 @@ const Estimate = (props) => {
     */
     e.preventDefault();
     const data = {
-      gallons: gallons,
-      //address: address,
-      in_state: inState,
-      // date: date,
+      // client_id: userID,
+      estimate_date: new Date(),
+      gallons_requested: gallons,
+      address: address,
+      delivery_date: date,
+      suggested_price: suggestedPrice,
+      quote: total,
     };
 
     console.log(data);
 
-    fetch(`http://localhost:5000/api/v1/save-estimate`, {
+    fetch(`http://localhost:5000/api/v1/estimates/${userID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -261,7 +264,7 @@ const Estimate = (props) => {
         </Grid>
       </form>
       <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
-        <Button variant="contained" color="primary">
+        <Button onClick={handleSave} variant="contained" color="primary">
           Save Quote
         </Button>
       </Grid>

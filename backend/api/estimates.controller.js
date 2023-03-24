@@ -11,7 +11,7 @@ export default class EstimatesController {
       const suggestedPrice = req.body.suggested_price;
       const quote = req.body.quote;
 
-      const EstimatesResponse = await EstimatesDAO.updateEstimates(
+      const EstimatesResponse = await EstimatesDAO.addEstimate(
         client_id,
         estimateDate,
         gallonsRequested,
