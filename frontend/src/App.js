@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import useLocalStorage from 'use-local-storage';
-import './App.css';
+import useLocalStorage from "use-local-storage";
+import "./App.css";
 import Estimate from "./pages/estimate.js";
 import History from "./pages/history.js";
 import Home from "./pages/home.js";
 import Login from "./pages/login.js";
 import ManageProfile from "./pages/manage-profile.js";
-import Navbar from './components/Navbar/Navbar.js'
-import PageContainer from './components/PageContainer/PageContainer';
-import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import {UserAlert} from './components/UserAlert/UserAlert';
+import Navbar from "./components/Navbar/Navbar.js";
+import PageContainer from "./components/PageContainer/PageContainer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import { UserAlert } from "./components/UserAlert/UserAlert";
 
 function App() {
   // Login state
@@ -33,10 +33,10 @@ function App() {
 
   // Logout setter
   const handleLogOut = () => {
-    if(isLoggedIn && !isFirstLogin){
-      setAlertMessage(`Successfully logged out.`)
-      setOpenAlert(true)
-      setIsFirstLogin(false)
+    if (isLoggedIn && !isFirstLogin) {
+      setAlertMessage(`Successfully logged out.`);
+      setOpenAlert(true);
+      setIsFirstLogin(false);
     }
     setLoginID(null)
     setLoginState(null)
@@ -61,22 +61,25 @@ function App() {
       primary: {
         main: "#FD5E00",
       },
-      secondary:{
-        main: "#2B3A55"
+      secondary: {
+        main: "#2B3A55",
       },
-      white:{
-        main: "#FFFFFF"
-      }
-    }
+      white: {
+        main: "#FFFFFF",
+      },
+    },
   });
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'></link>
+        <link
+          href="https://fonts.googleapis.com/css?family=Inter"
+          rel="stylesheet"
+        ></link>
         <Router>
-        <ScrollToTop />
-        <Navbar login={loginState} toggle={handleLogOut}/>
+          <ScrollToTop />
+          <Navbar login={loginState} toggle={handleLogOut} />
           <PageContainer>
             <Routes> 
               <Route path='/' element={<Home/>} />
@@ -87,11 +90,16 @@ function App() {
               <Route path='/manage-profile' element={<ManageProfile state = {isLoggedIn} logID = {loginID}/>} />
             </Routes>
           </PageContainer>
-          <UserAlert open={openAlert} setOpen={setOpenAlert} message={alertMessage} severity="success"/>
+          <UserAlert
+            open={openAlert}
+            setOpen={setOpenAlert}
+            message={alertMessage}
+            severity="success"
+          />
         </Router>
       </ThemeProvider>
     </div>
   );
 }
 
-export default App
+export default App;
