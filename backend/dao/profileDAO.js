@@ -39,7 +39,7 @@ export default class ProfileDAO {
         { _id: new mongoose.Types.ObjectId(clientID) },
         { $set: profileDoc }
       );
-      return updateResponse;
+      // return updateResponse;
     } catch (err) {
       console.error(`Unable to update profile: ${err}`);
       return { error: err };
