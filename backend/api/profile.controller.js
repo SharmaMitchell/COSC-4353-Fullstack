@@ -12,32 +12,36 @@ export default class ProfileController {
       const zipcode = req.body.zipcode;
 
       //validations
-      if (clientName.length > 40 || !isNaN(clientName) || clientName == ''){
-        res.status(500).json({error: "Invalid name"})
-    }else if (address1.length > 100 || address1 == ''){
-        res.status(500).json({error: "Invalid address"})
-    }else if (address2 != null && address2.length > 100){
-      res.status(500).json({error: "Invalid address"})
-    }else if (city.length > 50 || !isNaN(city) || city == ''){
-            res.status(500).json({error: "Invalid city"})
-    }else if (state.length != 2 || state == ''){
-            res.status(500).json({error: "Invalid state code"})
-    }else if (zipcode.length < 5 || zipcode.length > 9 || isNaN(zipcode) || zipcode == ''){
-            res.status(500).json({error: "Invalid zipcode"})
-    }else{
+      if (clientName.length > 40 || !isNaN(clientName) || clientName == "") {
+        res.status(500).json({ error: "Invalid name" });
+      } else if (address1.length > 100 || address1 == "") {
+        res.status(500).json({ error: "Invalid address" });
+      } else if (address2 != null && address2.length > 100) {
+        res.status(500).json({ error: "Invalid address" });
+      } else if (city.length > 50 || !isNaN(city) || city == "") {
+        res.status(500).json({ error: "Invalid city" });
+      } else if (state.length != 2 || state == "") {
+        res.status(500).json({ error: "Invalid state code" });
+      } else if (
+        zipcode.length < 5 ||
+        zipcode.length > 9 ||
+        isNaN(zipcode) ||
+        zipcode == ""
+      ) {
+        res.status(500).json({ error: "Invalid zipcode" });
+      } else {
         const ProfileResponse = await ProfileDAO.updateProfile(
-            clientID,
-            clientName,
-            address1,
-            address2,
-            city,
-            state,
-            zipcode
-        )
-        res.json({ status: "success" })
-    }
-    } 
-    catch (err) {
+          clientID,
+          clientName,
+          address1,
+          address2,
+          city,
+          state,
+          zipcode
+        );
+        res.json({ status: "success" });
+      }
+    } catch (err) {
       res.status(500).json({ error: err.message });
     }
   }
@@ -82,32 +86,28 @@ export default class ProfileController {
 
       //checks if the response is null, if it is then we cant find the user
       if (loginResponse == null) {
-        res.status(400).send({ message: "User does not exist" });
+        res.status(400).send({ message: "No server response" });
+        return;
       }
 
-      if (loginResponse.username !== clientUsername?.toString()) {
-        res.status(400).send({ message: "Username Mismatch" });
+      if (loginResponse.username !== clientUsername) {
+        res.status(400).send({ message: "User does not exist" });
+        return;
       }
 
       //checks if the password are the same
-      if (loginResponse.password !== clientPassword?.toString()) {
+      if (loginResponse.password !== clientPassword) {
         res.status(400).send({ message: "Password Mismatch" });
+        return;
       }
       //return success because the inputted credentials are true
       const theResponse = {
-        status: "success",
+        status: 200,
         user_id: loginResponse._id.toString(),
-        // username: loginResponse.username,
-        // client_name: loginResponse.client_name,
-        // address_1: loginResponse.address_1,
-        // address_2: loginResponse.address_2,
-        // city: loginResponse.city,
-        // state: loginResponse.state,
-        // zipcode: loginResponse.zipcode,
       };
       res.json(theResponse);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).send({ error: err.message });
     }
   }
 }
