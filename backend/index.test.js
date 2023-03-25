@@ -154,16 +154,16 @@ describe("Server", () => {
   });
 
   // router.route("/register").post(ProfileCtrl.apiCreateProfile)
-  // describe("POST /api/v1/register", () => {
-  //   it("should return a 200 status code for a valid registration", async () => {
-  //     const response = await supertest(server).post("/api/v1/register").send({
-  //       "username": "testingUsername",
-  //       "password" : "testingPassword"
-  //     });
-  //     expect(response.status).toBe(200);
-  //   });
+  describe("POST /api/v1/register", () => {
+    it("should return a 200 status code for a valid registration", async () => {
+      const response = await supertest(server).post("/api/v1/register").send({
+        "username": "testingUsername",
+        "password" : "testingPassword"
+      });
+      expect(response.status).toBe(200);
+    });
 
-  // });
+  });
 
   // router.route("/get-profile").get(ProfileCtrl.apiGetProfileData)
   describe("GET /api/v1/get-profile", () => {
@@ -175,6 +175,9 @@ describe("Server", () => {
     });
   });
 
+
+  //Estimates tests
+  //get estimates
   describe("GET /api/v1/estimates/:clientID", () => {
     it("should return a 200 status code for a valid client ID", async () => {
       const response = await supertest(server).get(
@@ -182,6 +185,7 @@ describe("Server", () => {
       );
       expect(response.status).toBe(200);
     });
+
     it("should return a JSON object with estimates and client_id keys", async () => {
       const response = await supertest(server).get(
         "/api/v1/estimates/63f82d40be153fa3c4b62062"
@@ -193,6 +197,7 @@ describe("Server", () => {
         })
       );
     });
+
     it("should return an empty array if no estimates are found for a client ID", async () => {
       const response = await supertest(server).get(
         "/api/v1/estimates/client_without_estimates"
@@ -200,6 +205,98 @@ describe("Server", () => {
       expect(response.body.estimates).toEqual([]);
     });
   });
+
+  //post/save estimate
+  // router.route("/estimates/:clientID").post(estimatesController.apiUpdateEstimates);
+  describe("POST /api/v1/estimates/:clientID", () => {
+    it("should return a 200 status code with a valid clientID", async () => {
+      const response = await supertest(server)
+        .post("/api/v1/estimates/63f82d40be153fa3c4b62062")
+        .send({
+          "estimate_date": "2023-03-24T23:26:15.442Z",
+          "gallons_requested": 10000,
+          "address": "null, null, null, null",
+          "delivery_date": "",
+          "suggested_price": 0,
+          "quote": 0
+      });
+      expect(response.status).toBe(200);
+    });
+
+    it("should return a 200 status code with a valid clientID", async () => {
+      const response = await supertest(server)
+        .post("/api/v1/estimates/63f82d40be153fa3c4b62062")
+        .send({
+          "estimate_date": "2023-03-24T23:33:56.583Z",
+          "gallons_requested": "1111111",
+          "address": "4465 University Drive, Mailbox 96 5432, Austin, IA, 11111",
+          "delivery_date": "2023-03-29",
+          "suggested_price": "1.74",
+          "quote": "1933333.14"
+      
+      });
+      expect(response.body).toEqual({"status" : "success"});
+    });
+
+
+  });
+
+// create/calculate estimate
+// router.route("/get-estimate").post(estimatesController.apiCalculateEstimate);
+describe("POST /api/v1/get-estimate", () => {
+  it("should return a 200 status code with a valid clientID", async () => {
+    const response = await supertest(server)
+      .post("/api/v1/get-estimate")
+      .send({
+        "gallons": "1111111",
+        "in_state": false
+    });
+    expect(response.status).toBe(200);
+  });
+
+  it("should return a json with suggest price and total due", async () => {
+    const response = await supertest(server)
+      .post("/api/v1/get-estimate")
+      .send({
+        "gallons": "1111111",
+        "in_state": false
+    });
+    expect(response.body).toEqual({
+      "suggested_price": "1.74",
+      "total_amount_due": "1933333.14"
+  });
+  });
+
+  it("should return a 500 status code with invalid gallons requested amount", async () => {
+    const response = await supertest(server)
+      .post("/api/v1/get-estimate")
+      .send({
+        "gallons": "hello",
+        "in_state": false
+    });
+    expect(response.status).toBe(500);
+  });
+
+  it("should return a json with error 'Invalid gallons requested value' for invalid gallons values", async () => {
+    const response = await supertest(server)
+      .post("/api/v1/get-estimate")
+      .send({
+        "gallons": "hello",
+        "in_state": false
+    });
+    expect(response.body).toEqual({ error: "Invalid gallons requested value" });
+  });
+
+  it("should return a 500 status code for submission without json values", async () => {
+    const response = await supertest(server)
+      .post("/api/v1/get-estimate")
+      .send({
+        "in_state": null
+      });
+    expect(response.status).toBe(500);
+  });
+});
+
 
 
   //Login tests
@@ -217,5 +314,13 @@ describe("Server", () => {
         .send({ username: "coolgamer", password: "pass" });
       expect(response.status).toBe(400);
     });
+
+    it("should return a json 'username mismatch' error message", async () => {
+      const response = await supertest(server)
+        .post("/api/v1/login")
+        .send({ username: "coolgamer", password: "pass" });
+      expect(response.body).toEqual({message: "Username Mismatch" });
+    });
   });
+
 });

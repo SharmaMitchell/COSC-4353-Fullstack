@@ -90,7 +90,7 @@ export default class ProfileDAO {
         username: loginDoc.username,
         password: loginDoc.password,
       });
-      console.log(findUser);
+      // console.log(findUser);
       return findUser;
     } catch (err) {
       console.error(`Unable to find Username or Password: ${err}`);
