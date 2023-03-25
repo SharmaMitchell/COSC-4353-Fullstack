@@ -50,6 +50,10 @@ export default class EstimatesController {
       //const historyFactor = req.body.rate_history ? .01 : 0
       const gallonsFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
 
+      if(gallonsRequested == "" || isNaN(gallonsRequested)){
+        res.status(500).json({ error: "Invalid gallons requested value" });
+      }else{
+
       // Calculate the estimate
       const margin =
         currentPrice +
@@ -62,10 +66,12 @@ export default class EstimatesController {
       console.log(`Suggested Price: ${suggested_price}`);
       console.log(`Total Amount Due: ${total_amount_due}`);
       res.json({ suggested_price, total_amount_due });
-    } catch (err) {
+    } }
+    catch (err) {
       console.error(err);
       res.status(500).json({ error: err.message });
     }
+  
   }
 }
 // calculation formula
