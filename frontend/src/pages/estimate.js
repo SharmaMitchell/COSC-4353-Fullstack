@@ -3,6 +3,7 @@ import SectionTitle from "../components/SectionTitle/SectionTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import moment from "moment-timezone";
 
 const Estimate = (props) => {
   const [gallons, setGallons] = useState(0);
@@ -50,22 +51,14 @@ const Estimate = (props) => {
 
   const handleSave = (e) => {
     // save quote to backend
-    /* 
-    
-            <TableCell style={headStyle}>Estimate Date</TableCell>
-            <TableCell style={headStyle}>Gallons Requested</TableCell>
-            <TableCell style={headStyle}>Delivery Address</TableCell>
-            <TableCell style={headStyle}>Delivery Date</TableCell>
-            <TableCell style={headStyle}>Suggested Price</TableCell>
-            <TableCell style={headStyle}>Fuel Quote</TableCell>
-    */
     e.preventDefault();
+    const dateInServerTimezone = moment(date).tz("America/Chicago").toDate();
     const data = {
       // client_id: userID,
       estimate_date: new Date(),
       gallons_requested: gallons,
       address: address,
-      delivery_date: date,
+      delivery_date: dateInServerTimezone,
       suggested_price: suggestedPrice,
       quote: total,
     };
