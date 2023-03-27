@@ -1,5 +1,5 @@
 import ProfileDAO from "../dao/profileDAO.js";
-
+import bcrypt from "bcrypt";
 export default class ProfileController {
   static async apiUpdateProfile(req, res) {
     try {
@@ -50,9 +50,10 @@ export default class ProfileController {
     try {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
+      const hashedPassword = await bcrypt.hash(clientPassword,10);
       const CreateProfileResponse = await ProfileDAO.createProfile(
         clientUsername,
-        clientPassword
+        hashedPassword
       );
       res.json({
         status: "success",
