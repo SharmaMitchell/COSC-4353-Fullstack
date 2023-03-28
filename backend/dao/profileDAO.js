@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 let profiles;
 
 export default class ProfileDAO {
@@ -86,12 +87,16 @@ export default class ProfileDAO {
         password: clientPassword?.toString(),
       };
       //this query will find if there is a username and password in the database , will return null if it cant find anything
-      const findUser = await profiles.findOne({
+      const findUsername = await profiles.findOne({
         username: loginDoc.username,
-        password: loginDoc.password,
       });
+      const findUser = bcrypt.compareSync(
+        loginDoc.password,
+        findUsername.password
+      );
+
       // console.log(findUser);
-      return findUser;
+      return findUser ? findUsername : null;
     } catch (err) {
       console.error(`Unable to find Username or Password: ${err}`);
       return { error: err };
