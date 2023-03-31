@@ -78,12 +78,15 @@ export default class ProfileController {
     try {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
-
+      
+ 
       const loginResponse = await ProfileDAO.loginProfile(
         clientUsername,
         clientPassword
       );
 
+      const checkPassword = await bcrypt.compare(clientPassword, loginResponse.password);
+      console.log(checkPassword);
       //checks if the response is null, if it is then we cant find the user
       if (loginResponse == null) {
         res.status(400).send({ message: "User does not exist" });
@@ -94,9 +97,14 @@ export default class ProfileController {
         res.status(400).send({ message: "Username Mismatch" });
         return;
       }
-
+      /*
       //checks if the password are the same
       if (loginResponse.password !== clientPassword?.toString()) {
+        res.status(400).send({ message: "Password Mismatch" });
+        return;
+      }
+      */
+      if (!checkPassword) {
         res.status(400).send({ message: "Password Mismatch" });
         return;
       }

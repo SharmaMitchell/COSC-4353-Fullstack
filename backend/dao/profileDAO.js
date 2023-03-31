@@ -90,13 +90,16 @@ export default class ProfileDAO {
       const findUsername = await profiles.findOne({
         username: loginDoc.username,
       });
+
+      /*
       const findUser = bcrypt.compareSync(
         loginDoc.password,
         findUsername.password
       );
-
-      // console.log(findUser);
-      return findUser ? findUsername : null;
+      */
+     const hashedPassword = findUsername.password;
+     console.log(findUser);
+      return hashedPassword ? findUsername : null;
     } catch (err) {
       console.error(`Unable to find Username or Password: ${err}`);
       return { error: err };
