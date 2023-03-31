@@ -86,7 +86,18 @@ function App() {
           <PageContainer>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/history" element={<History userID={loginID} />} />
+              <Route
+                path="/history"
+                element={
+                  loginID ? (
+                    <History userID={loginID} />
+                  ) : (
+                    <h2 style={{ marginTop: "100px" }}>
+                      Please login to access Estimate History
+                    </h2>
+                  )
+                }
+              />
               <Route
                 path="/login"
                 element={
