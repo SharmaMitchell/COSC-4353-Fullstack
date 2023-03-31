@@ -55,9 +55,7 @@ export default class EstimatesController {
       }else{
 
       // Calculate the estimate
-      const margin =
-        currentPrice +
-        currentPrice * (locationFactor + gallonsFactor + profitFactor);
+      const margin = currentPrice * (locationFactor + gallonsFactor + profitFactor);
       const suggested_price = margin.toFixed(2);
       const amount_unrounded = gallonsRequested * margin;
       const total_amount_due = amount_unrounded.toFixed(2);

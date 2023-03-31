@@ -135,7 +135,7 @@ const Estimate = (props) => {
               label="Gallons Requested"
               id="gallons"
               placeholder="ex: 1,700"
-              inputProps={{ maxLength: 50 }}
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 8}}
               onChange={(event) => setGallons(event.target.value)}
               sx={{ width: "100%" }}
               color="secondary"
