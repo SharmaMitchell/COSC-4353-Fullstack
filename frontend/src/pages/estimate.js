@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle/SectionTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import moment from "moment-timezone";
+import styles from './home.module.css';
+import Stack from '@mui/material/Stack';
 
 const Estimate = (props) => {
   const [gallons, setGallons] = useState(0);
@@ -12,12 +15,21 @@ const Estimate = (props) => {
   const [suggestedPrice, setSuggestedPrice] = useState(0);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
+  const navigate = useNavigate();
   const userID = props.userID;
 
   //const [address, setAddress] = useState('')
   //const navigate = useNavigate();
   let today = new Date();
   today = formatDate(today);
+
+  const Login = () => {
+    navigate("/login");
+  };
+
+  const Signup = () => {
+    navigate("/signup");
+  };
 
   const handleSubmit = (e) => {
     // get quote from backend
@@ -118,6 +130,8 @@ const Estimate = (props) => {
   return (
     <div>
       <SectionTitle text="Estimate Calculator" />
+      {props.state ? (
+            <div>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -262,6 +276,23 @@ const Estimate = (props) => {
         </Button>
       </Grid>
     </div>
+    ) : (
+      <div>
+                <h2 className={styles.featuresHeading}>
+                    You Are Not Logged In
+                </h2>
+                <p style={{ maxWidth: 900 + "px", margin: "auto" }}>
+                    Please log in or sign up below to access the estimate calculator.
+                </p>
+                    <div style={{padding: 15 + "px", display: "inline-block"}}>
+                            <Stack direction="row" spacing={2}>
+                            <Button variant="contained" onClick={Login} color="primary">Log In</Button>
+                            <Button variant="outlined" onClick={Signup} color="secondary">Sign Up</Button>
+                            </Stack>
+                    </div>
+            </div>
+            )}
+      </div>
   );
 };
 

@@ -93,7 +93,7 @@ function App() {
                     <History userID={loginID} />
                   ) : (
                     <h2 style={{ marginTop: "100px" }}>
-                      Please login to access Estimate History
+                    Please Login to Access Estimate History
                     </h2>
                   )
                 }
@@ -110,7 +110,7 @@ function App() {
                   <Login login={false} state={isLoggedIn} setter={setLogin} />
                 }
               />
-              <Route path="/estimate" element={<Estimate userID={loginID} />} />
+              <Route path="/estimate" element={<Estimate userID={loginID} state={isLoggedIn}/>} />
               <Route
                 path="/manage-profile"
                 element={<ManageProfile state={isLoggedIn} logID={loginID} />}
