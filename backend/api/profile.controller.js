@@ -1,5 +1,5 @@
 import ProfileDAO from "../dao/profileDAO.js";
-
+import bcrypt from "bcrypt";
 export default class ProfileController {
   static async apiUpdateProfile(req, res) {
     try {
@@ -50,9 +50,10 @@ export default class ProfileController {
     try {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
+      const hashedPassword = await bcrypt.hash(clientPassword,10);
       const CreateProfileResponse = await ProfileDAO.createProfile(
         clientUsername,
-        clientPassword
+        hashedPassword
       );
       res.json({
         status: "success",
@@ -83,6 +84,8 @@ export default class ProfileController {
         clientPassword
       );
 
+      console.log(loginResponse.password)
+      console.log(clientPassword?.toString())
       //checks if the response is null, if it is then we cant find the user
       if (loginResponse == null) {
         res.status(400).send({ message: "User does not exist" });
@@ -95,10 +98,15 @@ export default class ProfileController {
       }
 
       //checks if the password are the same
-      if (loginResponse.password !== clientPassword?.toString()) {
+      const findUser = bcrypt.compareSync(
+        clientPassword?.toString(),
+        loginResponse.password
+      );
+      if (!findUser) {
         res.status(400).send({ message: "Password Mismatch" });
         return;
       }
+      
       //return success because the inputted credentials are true
       const theResponse = {
         status: "success",
