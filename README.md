@@ -12,6 +12,6 @@ Webapp to predict fuel usage based on input client information, featuring: login
 - Run `cd ./frontend` to navigate to the frontend directory
 - Run `npm install`, to install the required dependencies for the frontend
 - Run `npm start` to start a local server for the frontend React application
-- Run `cd ../backend` to navigate to the backend directory
+- In a separate terminal, navigate to the `/backend` directory
 - Run `npm install` to install the required dependencies for the backend
 - Run `npm run dev` to start a Nodemon development server (which conveniently restarts upon changes to the backend code)
