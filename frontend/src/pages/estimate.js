@@ -212,7 +212,7 @@ const Estimate = (props) => {
               type="submit" 
               variant="contained" 
               color="primary"
-              disabled={gallons == "" || address == "" || date == ""}
+              disabled={gallons === "" || address === "" || date === ""}
             >
               GET QUOTE
             </Button>
@@ -280,7 +280,7 @@ const Estimate = (props) => {
           onClick={handleSave}
           variant="contained"
           color="primary"
-          disabled={suggestedPrice ==0 && total === 0}
+          disabled={suggestedPrice === 0 && total === 0}
         >
           Save Quote
         </Button>
