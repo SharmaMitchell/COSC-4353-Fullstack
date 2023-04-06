@@ -208,7 +208,12 @@ const Estimate = (props) => {
             />
           </Grid>
           <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button 
+              type="submit" 
+              variant="contained" 
+              color="primary"
+              disabled={gallons == "" || address == "" || date == ""}
+            >
               GET QUOTE
             </Button>
           </Grid>
@@ -271,7 +276,12 @@ const Estimate = (props) => {
         </Grid>
       </form>
       <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
-        <Button onClick={handleSave} variant="contained" color="primary">
+        <Button 
+          onClick={handleSave}
+          variant="contained"
+          color="primary"
+          disabled={suggestedPrice ==0 && total === 0}
+        >
           Save Quote
         </Button>
       </Grid>
