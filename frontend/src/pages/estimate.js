@@ -15,6 +15,7 @@ const Estimate = (props) => {
   const [suggestedPrice, setSuggestedPrice] = useState(0);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
+  const [historyFactor, setHistoryFactor] = useState(false);
   const navigate = useNavigate();
   const userID = props.userID;
 
@@ -127,6 +128,18 @@ const Estimate = (props) => {
     console.log(inState);
   }, [userID]);
 
+  // get user's history to see if they've ordered before (history factor)
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/v1/estimates/${userID ? userID : ""}`)
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        setHistoryFactor(data.estimates.length > 0)
+      });
+  }, []);
+
+
   return (
     <div>
       <SectionTitle text="Estimate Calculator" />
@@ -155,9 +168,21 @@ const Estimate = (props) => {
               color="secondary"
               helperText={
                 <>
-                  1000+ Gallons: 2%
+                  {gallons > 1000 ? (
+                    <b style={{ color: "var(--text-highlight)" }}>
+                      1000+ Gallons: 2%
+                    </b>
+                  ) : (
+                    <>1000+ Gallons: 2%</>
+                  )}
                   <br />
-                  1000 Gallons: 3%
+                  {gallons > 1000 ? (
+                    <>{"< 1000 Gallons: 3%"}</>
+                  ) : (
+                    <b style={{ color: "var(--text-highlight)" }}>
+                      {"< 1000 Gallons: 3%"}
+                    </b>
+                  )}
                 </>
               }
             />
@@ -229,13 +254,6 @@ const Estimate = (props) => {
               sx={{ width: "100%" }}
               color="primary"
               variant="filled"
-              helperText={
-                <>
-                  Your Profit: $4.50 per gallon
-                  <br />
-                  Profit Factor Fee: $0.45 per gallon
-                </>
-              }
               FormHelperTextProps={{
                 style: { color: "black" },
               }}
@@ -254,13 +272,67 @@ const Estimate = (props) => {
               variant="filled"
               helperText={
                 <>
-                  Base cost: $2,550.00 ($1.50/gallon)
+                  Base cost:
+                  <b>
+                    {" " + (gallons * 1.5).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </b>
                   <br />
-                  In-State: $51.00 (2% on $2,550.00)
+                  {inState ? (
+                    <>
+                      In-State:
+                      <b>
+                        {" " + (gallons * 1.5 * 0.02).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                      </b>
+                    </>
+                  ) : (
+                    <>
+                      Out-of-State:
+                      <b>
+                        {" " + (gallons * 1.5 * 0.04).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                      </b>
+                    </>
+                  )}
                   <br />
-                  Profit Fee: $510.00 (10% on $5100)
+                  Profit Factor:
+                  <b>
+                    {" " + (gallons * 1.5 * 0.1).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </b>
                   <br />
-                  Total Cost: $3,111.00
+                  {historyFactor ? (
+                    <>
+                      History Factor:
+                      <b>
+                        {" " + (gallons * 1.5 * -0.01).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                      </b>
+                      <br />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  Gallons {gallons > 1000 ? "> 1000" : "< 1000"}:
+                  <b>
+                    {" " + (gallons * 1.5 * (gallons > 1000 ? 0.02 : 0.03))
+                      .toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })
+                    }
+                  </b>
                 </>
               }
               FormHelperTextProps={{
