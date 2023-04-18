@@ -51,6 +51,11 @@ export default class ProfileController {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
       const hashedPassword = await bcrypt.hash(clientPassword,10);
+
+      const isDuplicate = await ProfileDAO.checkDuplicateUser(clientUsername);
+      if(isDuplicate) {
+        return res.status(400).json({ message: 'Username already exists' });
+      }
       const CreateProfileResponse = await ProfileDAO.createProfile(
         clientUsername,
         hashedPassword
