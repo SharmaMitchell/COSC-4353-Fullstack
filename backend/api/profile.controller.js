@@ -54,7 +54,7 @@ export default class ProfileController {
 
       const isDuplicate = await ProfileDAO.checkDuplicateUser(clientUsername);
       if(isDuplicate) {
-        return res.status(400).json({ message: 'Username already exists' });
+        return res.status(400).json({ error: 'Username already exists' });
       }
       const CreateProfileResponse = await ProfileDAO.createProfile(
         clientUsername,

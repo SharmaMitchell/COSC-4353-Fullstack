@@ -24,6 +24,7 @@ const Login = (props) => {
       })
       .catch((e) => {
         console.log(e);
+        window.alert(e.response.data.error);
       });
     navigate("/manage-profile");
   };

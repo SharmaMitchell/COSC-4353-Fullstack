@@ -63,7 +63,6 @@ export default class ProfileDAO {
   }
   static async createProfile(clientUsername, clientPassword) {
     try {
-  
       const registerDoc = {
         username: clientUsername,
         password: clientPassword,
