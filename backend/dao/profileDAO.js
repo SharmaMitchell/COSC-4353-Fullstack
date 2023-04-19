@@ -46,7 +46,21 @@ export default class ProfileDAO {
       return { error: err };
     }
   }
-
+  //check upon signup if there is a username
+  static async checkDuplicateUser(clientUsername) {
+    try {
+      const existingUser = await profiles.findOne({username: clientUsername});
+      if(existingUser) {
+        return true;
+      } 
+      else {
+        return false;
+      }
+    }catch(err) {
+      console.error(`Error checking for duplicate username: ${err}`);
+      return true;
+    }
+  }
   static async createProfile(clientUsername, clientPassword) {
     try {
       const registerDoc = {
@@ -59,6 +73,7 @@ export default class ProfileDAO {
         state: null,
         zipcode: null,
       };
+      
       const registerResponse = await profiles.insertOne(registerDoc);
 
       return registerResponse;
