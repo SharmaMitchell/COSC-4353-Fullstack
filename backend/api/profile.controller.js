@@ -50,6 +50,12 @@ export default class ProfileController {
     try {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
+
+      if (clientPassword.length < 8  || clientPassword.length > 30) {
+        res.status(500).json({ error: "Invalid password" });
+      } else if (clientUsername.length < 4  || clientUsername.length > 20) {
+        res.status(500).json({ error: "Invalid username" });
+      } else {
       const hashedPassword = await bcrypt.hash(clientPassword,10);
 
       const isDuplicate = await ProfileDAO.checkDuplicateUser(clientUsername);
@@ -64,6 +70,7 @@ export default class ProfileController {
         status: "success",
         user_id: CreateProfileResponse.insertedId.toString(),
       });
+    }
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -84,13 +91,18 @@ export default class ProfileController {
       const clientUsername = req.body.username;
       const clientPassword = req.body.password;
 
+
+      if (clientPassword.length < 8  || clientPassword.length > 30) {
+        res.status(500).json({ error: "Invalid password" });
+      } else if (clientUsername.length < 4  || clientUsername.length > 20) {
+        res.status(500).json({ error: "Invalid username" });
+      } else {
+
       const loginResponse = await ProfileDAO.loginProfile(
         clientUsername,
         clientPassword
       );
 
-      console.log(loginResponse.password)
-      console.log(clientPassword?.toString())
       //checks if the response is null, if it is then we cant find the user
       if (loginResponse == null) {
         res.status(400).send({ message: "User does not exist" });
@@ -119,6 +131,7 @@ export default class ProfileController {
       };
       res.json(theResponse);
       return;
+      } 
     } catch (err) {
       res.status(400).send({ error: err.message });
       return;
