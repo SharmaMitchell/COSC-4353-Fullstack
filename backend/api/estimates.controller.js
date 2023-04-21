@@ -46,7 +46,7 @@ export default class EstimatesController {
       const profitFactor = 0.1;
       if (gallonsRequested.length > 50) {
         res.status(500).json({ error: "Invalid gallons value"});
-      } elif
+      }
 
       const inState = req.body.in_state;
       const locationFactor = inState ? 0.02 : 0.04;
