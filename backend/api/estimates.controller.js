@@ -44,7 +44,7 @@ export default class EstimatesController {
       const currentPrice = 1.5;
       const gallonsRequested = req.body.gallons;
       const profitFactor = 0.1;
-      if (gallonsRequested.length > 50) {
+      if (gallonsRequested.length > 9) {
         res.status(500).json({ error: "Invalid gallons value" });
       }
 
