@@ -162,7 +162,21 @@ const Estimate = (props) => {
                   label="Gallons Requested"
                   id="gallons"
                   placeholder="ex: 1,700"
-                  inputProps={{ maxLength: 50 }}
+                  inputProps={{
+                    inputMode: "numeric",
+                    pattern: "[0-9]*",
+                    min: 0,
+                    maxlength: 9,
+                  }}
+                  onKeyPress={(event) => {
+                    if (
+                      event?.key === "-" ||
+                      event?.key === "+" ||
+                      event?.key === "e"
+                    ) {
+                      event.preventDefault();
+                    }
+                  }}
                   onChange={(event) => setGallons(event.target.value)}
                   sx={{ width: "100%" }}
                   color="secondary"
