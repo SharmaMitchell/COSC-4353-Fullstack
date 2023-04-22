@@ -5,8 +5,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import moment from "moment-timezone";
-import styles from './home.module.css';
-import Stack from '@mui/material/Stack';
+import styles from "./home.module.css";
+import Stack from "@mui/material/Stack";
 
 const Estimate = (props) => {
   const [gallons, setGallons] = useState(0);
@@ -40,6 +40,7 @@ const Estimate = (props) => {
       //address: address,
       in_state: inState,
       // date: date,
+      rate_history: historyFactor,
     };
 
     console.log(data);
@@ -135,246 +136,255 @@ const Estimate = (props) => {
         return data.json();
       })
       .then((data) => {
-        setHistoryFactor(data.estimates.length > 0)
+        setHistoryFactor(data.estimates.length > 0);
       });
   }, []);
-
 
   return (
     <div>
       <SectionTitle text="Estimate Calculator" />
       {props.state ? (
-            <div>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          width: "100%",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <Grid container spacing={2} sx={{ maxWidth: "320px" }}>
-          <Grid item xs={12}>
-            <TextField
-              required
-              type="number"
-              label="Gallons Requested"
-              id="gallons"
-              placeholder="ex: 1,700"
-              inputProps={{ maxLength: 50 }}
-              onChange={(event) => setGallons(event.target.value)}
-              sx={{ width: "100%" }}
-              color="secondary"
-              helperText={
-                <>
-                  {gallons > 1000 ? (
-                    <b style={{ color: "var(--text-highlight)" }}>
-                      1000+ Gallons: 2%
-                    </b>
-                  ) : (
-                    <>1000+ Gallons: 2%</>
-                  )}
-                  <br />
-                  {gallons > 1000 ? (
-                    <>{"< 1000 Gallons: 3%"}</>
-                  ) : (
-                    <b style={{ color: "var(--text-highlight)" }}>
-                      {"< 1000 Gallons: 3%"}
-                    </b>
-                  )}
-                </>
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Delivery Address"
-              id="address"
-              value={address}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{ width: "100%" }}
-              color="secondary"
-              helperText={
-                <>
-                  {inState ? (
-                    <b style={{ color: "var(--text-highlight)" }}>
-                      In-State Location: 2%
-                    </b>
-                  ) : (
-                    <>In-State Location: 2%</>
-                  )}
-                  <br />
-                  {inState ? (
-                    <>Out-of-State Location: 4%</>
-                  ) : (
-                    <b style={{ color: "var(--text-highlight)" }}>
-                      Out-of-State Location: 4%
-                    </b>
-                  )}
-                </>
-              }
-              variant="filled"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              //disablePast
-              inputFormat="MM/DD/YYYY"
-              type="date"
-              id="date"
-              //<DatePicker minDate={today}/>
-              inputProps={{ min: today }}
-              onChange={(event) => setDate(event.target.value)}
-              sx={{ width: "100%" }}
-              color="secondary"
-            />
-          </Grid>
-          <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
-            <Button 
-              type="submit" 
-              variant="contained" 
-              color="primary"
-              disabled={gallons === "" || address === "" || date === ""}
+        <div>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Grid container spacing={2} sx={{ maxWidth: "320px" }}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  type="number"
+                  label="Gallons Requested"
+                  id="gallons"
+                  placeholder="ex: 1,700"
+                  inputProps={{ maxLength: 50 }}
+                  onChange={(event) => setGallons(event.target.value)}
+                  sx={{ width: "100%" }}
+                  color="secondary"
+                  helperText={
+                    <>
+                      {gallons > 1000 ? (
+                        <b style={{ color: "var(--text-highlight)" }}>
+                          1000+ Gallons: 2%
+                        </b>
+                      ) : (
+                        <>1000+ Gallons: 2%</>
+                      )}
+                      <br />
+                      {gallons > 1000 ? (
+                        <>{"< 1000 Gallons: 3%"}</>
+                      ) : (
+                        <b style={{ color: "var(--text-highlight)" }}>
+                          {"< 1000 Gallons: 3%"}
+                        </b>
+                      )}
+                    </>
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Delivery Address"
+                  id="address"
+                  value={address}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  color="secondary"
+                  helperText={
+                    <>
+                      {inState ? (
+                        <b style={{ color: "var(--text-highlight)" }}>
+                          In-State Location: 2%
+                        </b>
+                      ) : (
+                        <>In-State Location: 2%</>
+                      )}
+                      <br />
+                      {inState ? (
+                        <>Out-of-State Location: 4%</>
+                      ) : (
+                        <b style={{ color: "var(--text-highlight)" }}>
+                          Out-of-State Location: 4%
+                        </b>
+                      )}
+                    </>
+                  }
+                  variant="filled"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  //disablePast
+                  inputFormat="MM/DD/YYYY"
+                  type="date"
+                  id="date"
+                  //<DatePicker minDate={today}/>
+                  inputProps={{ min: today }}
+                  onChange={(event) => setDate(event.target.value)}
+                  sx={{ width: "100%" }}
+                  color="secondary"
+                />
+              </Grid>
+              <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={gallons === "" || address === "" || date === ""}
+                >
+                  GET QUOTE
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              spacing={2}
+              sx={{ maxWidth: "320px", marginTop: "30px" }}
             >
-              GET QUOTE
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={2}
-          sx={{ maxWidth: "320px", marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <TextField
-              label="Suggested Price/Gallon"
-              id="price"
-              value={`$${suggestedPrice} per Gallon`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{ width: "100%" }}
-              color="primary"
-              variant="filled"
-              FormHelperTextProps={{
-                style: { color: "black" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Total Amount Due"
-              id="amount"
-              value={`$${total}`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{ width: "100%" }}
-              color="primary"
-              variant="filled"
-              helperText={
-                <>
-                  Base cost:
-                  <b>
-                    {" " + (gallons * 1.5).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                  </b>
-                  <br />
-                  {inState ? (
+              <Grid item xs={12}>
+                <TextField
+                  label="Suggested Price/Gallon"
+                  id="price"
+                  value={`$${suggestedPrice} per Gallon`}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  color="primary"
+                  variant="filled"
+                  FormHelperTextProps={{
+                    style: { color: "black" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Total Amount Due"
+                  id="amount"
+                  value={`$${total}`}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  color="primary"
+                  variant="filled"
+                  helperText={
                     <>
-                      In-State:
+                      Base cost:
                       <b>
-                        {" " + (gallons * 1.5 * 0.02).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                      </b>
-                    </>
-                  ) : (
-                    <>
-                      Out-of-State:
-                      <b>
-                        {" " + (gallons * 1.5 * 0.04).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                      </b>
-                    </>
-                  )}
-                  <br />
-                  Profit Factor:
-                  <b>
-                    {" " + (gallons * 1.5 * 0.1).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                  </b>
-                  <br />
-                  {historyFactor ? (
-                    <>
-                      History Factor:
-                      <b>
-                        {" " + (gallons * 1.5 * -0.01).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
+                        {" " +
+                          (gallons * 1.5).toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
                       </b>
                       <br />
+                      {inState ? (
+                        <>
+                          In-State:
+                          <b>
+                            {" " +
+                              (gallons * 1.5 * 0.02).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                          </b>
+                        </>
+                      ) : (
+                        <>
+                          Out-of-State:
+                          <b>
+                            {" " +
+                              (gallons * 1.5 * 0.04).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                          </b>
+                        </>
+                      )}
+                      <br />
+                      Profit Factor:
+                      <b>
+                        {" " +
+                          (gallons * 1.5 * 0.1).toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                      </b>
+                      <br />
+                      {historyFactor ? (
+                        <>
+                          History Factor:
+                          <b>
+                            {" " +
+                              (gallons * 1.5 * -0.01).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                          </b>
+                          <br />
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      Gallons {gallons > 1000 ? "> 1000" : "< 1000"}:
+                      <b>
+                        {" " +
+                          (
+                            gallons *
+                            1.5 *
+                            (gallons > 1000 ? 0.02 : 0.03)
+                          ).toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                      </b>
                     </>
-                  ) : (
-                    <></>
-                  )}
-                  Gallons {gallons > 1000 ? "> 1000" : "< 1000"}:
-                  <b>
-                    {" " + (gallons * 1.5 * (gallons > 1000 ? 0.02 : 0.03))
-                      .toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })
-                    }
-                  </b>
-                </>
-              }
-              FormHelperTextProps={{
-                style: { color: "black" },
-              }}
-            />
+                  }
+                  FormHelperTextProps={{
+                    style: { color: "black" },
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </form>
+          <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
+            <Button
+              onClick={handleSave}
+              variant="contained"
+              color="primary"
+              disabled={suggestedPrice === 0 && total === 0}
+            >
+              Save Quote
+            </Button>
           </Grid>
-        </Grid>
-      </form>
-      <Grid item xs={12} direction={"row"} sx={{ marginTop: "20px" }}>
-        <Button 
-          onClick={handleSave}
-          variant="contained"
-          color="primary"
-          disabled={suggestedPrice === 0 && total === 0}
-        >
-          Save Quote
-        </Button>
-      </Grid>
+        </div>
+      ) : (
+        <div>
+          <h2 className={styles.featuresHeading}>You Are Not Logged In</h2>
+          <p style={{ maxWidth: 900 + "px", margin: "auto" }}>
+            Please log in or sign up below to access the estimate calculator.
+          </p>
+          <div style={{ padding: 15 + "px", display: "inline-block" }}>
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" onClick={Login} color="primary">
+                Log In
+              </Button>
+              <Button variant="outlined" onClick={Signup} color="secondary">
+                Sign Up
+              </Button>
+            </Stack>
+          </div>
+        </div>
+      )}
     </div>
-    ) : (
-      <div>
-                <h2 className={styles.featuresHeading}>
-                    You Are Not Logged In
-                </h2>
-                <p style={{ maxWidth: 900 + "px", margin: "auto" }}>
-                    Please log in or sign up below to access the estimate calculator.
-                </p>
-                    <div style={{padding: 15 + "px", display: "inline-block"}}>
-                            <Stack direction="row" spacing={2}>
-                            <Button variant="contained" onClick={Login} color="primary">Log In</Button>
-                            <Button variant="outlined" onClick={Signup} color="secondary">Sign Up</Button>
-                            </Stack>
-                    </div>
-            </div>
-            )}
-      </div>
   );
 };
 
