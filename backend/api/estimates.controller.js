@@ -45,36 +45,36 @@ export default class EstimatesController {
       const gallonsRequested = req.body.gallons;
       const profitFactor = 0.1;
       if (gallonsRequested.length > 50) {
-        res.status(500).json({ error: "Invalid gallons value"});
+        res.status(500).json({ error: "Invalid gallons value" });
       }
 
       const inState = req.body.in_state;
       const locationFactor = inState ? 0.02 : 0.04;
-      //const historyFactor = req.body.rate_history ? .01 : 0
+      const historyFactor = req.body.rate_history ? 0.01 : 0;
       const gallonsFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
 
-      if(gallonsRequested == "" || isNaN(gallonsRequested)){
+      if (gallonsRequested == "" || isNaN(gallonsRequested)) {
         res.status(500).json({ error: "Invalid gallons requested value" });
-      }else{
+      } else {
+        // Calculate the estimate
+        const margin =
+          currentPrice +
+          currentPrice *
+            (locationFactor - historyFactor + gallonsFactor + profitFactor);
+        const suggested_price = margin.toFixed(2);
+        const amount_unrounded = gallonsRequested * margin;
+        const total_amount_due = amount_unrounded.toFixed(2);
 
-      // Calculate the estimate
-      const margin =
-        currentPrice +
-        currentPrice * (locationFactor + gallonsFactor + profitFactor);
-      const suggested_price = margin.toFixed(2);
-      const amount_unrounded = gallonsRequested * margin;
-      const total_amount_due = amount_unrounded.toFixed(2);
-
-      // Send the estimate as a response
-      console.log(`Suggested Price: ${suggested_price}`);
-      console.log(`Total Amount Due: ${total_amount_due}`);
-      res.json({ suggested_price, total_amount_due });
-    } }
-    catch (err) {
+        // Send the estimate as a response
+        console.log(`Suggested Price: ${suggested_price}`);
+        console.log(`Total Amount Due: ${total_amount_due}`);
+        console.log(`History Factor: ${historyFactor}`);
+        res.json({ suggested_price, total_amount_due });
+      }
+    } catch (err) {
       console.error(err);
       res.status(500).json({ error: err.message });
     }
-  
   }
 }
 // calculation formula
